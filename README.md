@@ -1,8 +1,8 @@
-# Retro Platforma: Izsoles un sludinājumu portāls
+# Retro Platforma: Izsoļu un sludinājumu portāls
 
 # Projekta apraksts
 
-Šis ir mācību projekts PIKC "Rīgas Valsts tehnikums" kvalifikācijas darba repozitorijam.
+Šis ir mācību projekts Latvijas Universitātes kvalifikācijas darba repozitorijam.
 Mājas lapa, kurā ir realizēts sludinājumu pivienošana un piedalīšana izsolēs.
 
 # Izmantotās tehnoloģijas
