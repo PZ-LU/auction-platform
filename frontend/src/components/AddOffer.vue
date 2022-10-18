@@ -50,19 +50,19 @@
                 <v-card-title
                   class="title font-weight-light"
                 >
-                  Parts
+                  Tags
                 </v-card-title>
                 <v-card-text>
                   <v-row
-                    v-for="part in partObjects"
-                    :key="part.id"
+                    v-for="tag in tagObjects"
+                    :key="tag.id"
                   >
                     <v-col>
                       <v-text-field
-                        v-model="part.label"
+                        v-model="tag.label"
                         :rules="[rules.required]"
                         :counter="32"
-                        placeholder="Part Label ..."
+                        placeholder="Tag Label ..."
                         label="Label"
                         outlined
                       />
@@ -71,7 +71,7 @@
                       v-if="categories.length"
                     >
                       <v-select
-                        v-model="part.category"
+                        v-model="tag.category"
                         required
                         label="Category"
                         solo
@@ -81,9 +81,9 @@
                       />
                     </v-col>
                     <v-btn
-                      v-if="part.id !== 0"
+                      v-if="tag.id !== 0"
                       icon
-                      @click="removeNewPart(part.id)"
+                      @click="removeNewTag(tag.id)"
                     >
                       <v-icon>mdi-close</v-icon>
                     </v-btn>
@@ -94,7 +94,7 @@
                     <div
                       class="caption-category"
                     >
-                      Provide a category for each part.
+                      Provide a category for each tag.
                     </div>
                   </v-row>
                   <v-btn 
@@ -261,7 +261,7 @@ export default {
         filesRequired: v => (!!v && this.files.length >=1) || 'You need to attach at least 1 image'
       },
 
-      partObjects: [
+      tagObjects: [
         {
           id: 0,
           label: null,
@@ -278,12 +278,12 @@ export default {
     }
   },
   watch: {
-    partObjects: {
+    tagObjects: {
       deep: true,
       handler: function () {
         this.areCategoriesFilled = true
-        this.partObjects.map(part => {
-          if (!part.category) {
+        this.tagObjects.map(tag => {
+          if (!tag.category) {
             this.areCategoriesFilled = false
           }
         })
@@ -303,8 +303,8 @@ export default {
   },
   methods: {
     addNewPart () {
-      this.partObjects.push({
-        id: this.partObjects.length,
+      this.tagObjects.push({
+        id: this.tagObjects.length,
         label: null,
         category: null
       })
@@ -317,7 +317,7 @@ export default {
       this.path = null
       this.formattedFiles = []
       this.areCategoriesFilled = false
-      this.partObjects = [
+      this.tagObjects = [
         {
           id: 0,
           label: null,
@@ -337,20 +337,20 @@ export default {
     makeUrl (file) {
       return URL.createObjectURL(file)
     },
-    removeNewPart (partId) {
-      let filtered = this.partObjects.filter(part => (part.id !== partId))
+    removeNewTag (tagId) {
+      let filtered = this.tagObjects.filter(tag => (tag.id !== tagId))
       if (filtered.length) {
-        let prevPartId = 0
-        filtered.map(part => {
-          if (part.id > 0) {
-            if (part.id !== prevPartId + 1) {
-              part.id = prevPartId + 1
+        let prevTagId = 0
+        filtered.map(tag => {
+          if (tag.id > 0) {
+            if (tag.id !== prevTagId + 1) {
+              tag.id = prevTagId + 1
             }
-            prevPartId = part.id
+            prevTagId = tag.id
           }
         })
       }
-      this.partObjects = filtered.length ? filtered : [filtered]
+      this.tagObjects = filtered.length ? filtered : [filtered]
     },
     submit () {
       if (this.$refs.ofForm.validate() && this.areCategoriesFilled) {
@@ -361,7 +361,7 @@ export default {
         offerData.append('contact_phone', this.contactPhone)
         offerData.append('contact_email', this.contactEmail)
         offerData.append('preview_image_id', 0)
-        offerData.append('parts', JSON.stringify(this.partObjects))
+        offerData.append('tags', JSON.stringify(this.tagObjects))
         // offerData
         for (let i = 0; i < this.files.length; i++) {
           offerData.append('images[]', this.files[i], this.files[i].name)                    

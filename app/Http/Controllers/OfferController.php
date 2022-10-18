@@ -28,7 +28,7 @@ class OfferController extends Controller
         // offer sorting by creation date
         if (!is_null($request->date)) {
             switch ($request->date) {
-                case 'accending':
+                case 'ascending':
                     $offersQuery->orderBy('created_at','asc');
                     break;
                 
@@ -49,10 +49,10 @@ class OfferController extends Controller
             $offersQuery->where('body', 'like', '%'.$request->description.'%');
         }
 
-        $offers = Offer::where('status', 'active');
-        if(!is_null($request->parts)) {
-            $offerIds = DB::table('offers_parts')
-                ->where('part', 'like', '%'.$request->parts.'%')
+        $offers = Offer::where('status', Offer\Status::ACTIVE);
+        if(!is_null($request->tags)) {
+            $offerIds = DB::table('offers_tags')
+                ->where('tag', 'like', '%'.$request->tags.'%')
                 ->groupBy('offer_id')
                 ->pluck('offer_id')
                 ->toArray();
@@ -62,13 +62,13 @@ class OfferController extends Controller
 
         $filterOfferIds = [];
         if(!is_null($request->category)) {
-            $offerIds = DB::table('offers_parts')
+            $offerIds = DB::table('offers_tags')
                 ->whereIn('category', (array) $request->category)
                 ->groupBy('offer_id')
                 ->pluck('offer_id');
             $offersQuery->whereIn('id', $offerIds);
         }
-        $offersQuery->where('status', 'active');
+        $offersQuery->where('status', Offer\Status::ACTIVE);
 
         $offers = $offersQuery;
 
@@ -86,7 +86,7 @@ class OfferController extends Controller
     }
 
     public function getAll () {
-        $offers = Offer::where('status', 'active')->get();
+        $offers = Offer::where('status', Offer\Status::ACTIVE)->get();
         foreach ($offers as $offer) {
             $offer->author_info = $this->getOfferAuthor($offer->author_id);
         }
@@ -121,7 +121,7 @@ class OfferController extends Controller
     }
 
     public function getUserOffers (Request $request) {
-        $offers = Offer::where('author_id', '=', $request->author_id)->where('status', 'active')->get();
+        $offers = Offer::where('author_id', '=', $request->author_id)->where('status', Offer\Status::ACTIVE)->get();
         if (sizeof($offers) < 1) {
             return [];
         }
@@ -156,7 +156,7 @@ class OfferController extends Controller
         $offer->contact_phone = $request->contact_phone;
         $offer->save();
 
-        $this->storeOfferParts($request->parts, $offer->id);
+        $this->storeOfferTags($request->tags, $offer->id);
 
         $previewImage = self::storeImages($offer->id, $request->images, $request->preview_image_id);
         $offer->preview_image = $previewImage;
@@ -172,6 +172,7 @@ class OfferController extends Controller
             $newLabel = null;
             $name_passed = false;
 
+            // Compose new label for picture and check if it is unique
             do {
                 $newLabel = md5(time()+rand()).'.'.$file->getClientOriginalExtension();
 
@@ -208,7 +209,7 @@ class OfferController extends Controller
     public function show($id)
     {
         $offer = Offer::find($id);
-        $offer['parts'] = $this->showOfferParts($id);
+        $offer['tags'] = $this->showOfferTags($id);
         return new OfferResources($offer);
     }
     

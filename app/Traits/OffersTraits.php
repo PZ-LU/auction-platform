@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Http\Controllers\OfferPartController;
+use App\Http\Controllers\OfferTagController;
 use App\Http\Controllers\UserController;
 
 /**
@@ -10,13 +10,13 @@ use App\Http\Controllers\UserController;
  */
 trait OffersTraits
 {
-    // Offer Parts
-    public function showOfferParts($offerId) {
-        return OfferPartController::show($offerId);
+    // Offer Tags
+    public function showOfferTags($offerId) {
+        return OfferTagController::show($offerId);
     }
 
-    public function storeOfferParts($arrayData, $offerId) {
-        return OfferPartController::store($arrayData, $offerId);
+    public function storeOfferTags($arrayData, $offerId) {
+        return OfferTagController::store($arrayData, $offerId);
     }
 
     public function getOfferAuthor($userId) {

@@ -15,7 +15,7 @@ export default new Vuex.Store({
     offersFilters: {
       title: null,
       description: null,
-      parts: null,
+      tags: null,
       category: null,
       date: null
     },

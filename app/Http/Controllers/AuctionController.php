@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Auction;
+use App\Offer;
 use App\AuctionObject;
 use App\AuctionParticipants;
 use App\Http\Resources\Auction\AuctionFullDataSet as AuctionFullDataSetResources;
@@ -19,7 +20,7 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($status = 'active')
+    public function index($status = Offer\Status::ACTIVE)
     {
         $raw_auctions = new Auction;
         $decoded_auctions = json_decode($raw_auctions->all());

@@ -38,17 +38,17 @@
         </v-card>
         <v-card
           outlined
-          v-if="parts.length"
+          v-if="tags.length"
         >
           <v-card-title
             class="font-weight-light"
           >
-            Parts
+            Tags
           </v-card-title>
           <v-card-text>
             <v-data-table
               :headers="headers"
-              :items="partsItems"
+              :items="tagsItems"
               :items-per-page="5"
               item-key="label"
               group-by="category"
@@ -141,7 +141,7 @@ export default {
   data() {
     return {
       images: [],
-      parts: [],
+      tags: [],
 
       // table data
       headers: [
@@ -155,12 +155,12 @@ export default {
           value: 'category'
         }
       ],
-      partsItems: []
+      tagsItems: []
     }
   },
   created() {
     this.getImages()
-    this.getParts()
+    this.getTags()
   },
   methods: {
     closeDialog () {
@@ -198,13 +198,13 @@ export default {
           console.log(err)
         })
     },
-    async getParts () {
+    async getTags () {
       const req = 'http://127.0.0.1:8000/api/offer/'+this.pOffer.id
       axios
         .get (req)
         .then ((result) => {
           const {data:{data}} = result
-          this.parts = data.parts
+          this.tags = data.tags
           this.getTableContents()
         })
         .catch((err) => {
@@ -212,8 +212,8 @@ export default {
         })
     },
     getTableContents () {
-      for (const part of this.parts) {
-        this.partsItems.push({
+      for (const part of this.tags) {
+        this.tagsItems.push({
           'label': part.part,
           'category': this.getCategoryName(part.category)
         })

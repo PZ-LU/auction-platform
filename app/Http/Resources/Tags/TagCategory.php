@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Offers;
+namespace App\Http\Resources\Tags;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OfferCategory extends JsonResource
+class TagCategory extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,6 @@ class OfferCategory extends JsonResource
     {
         return [
             'id' => $this->id,
-            'parent_category_id' => $this->id,
             'label' => $this->label
         ];
     }

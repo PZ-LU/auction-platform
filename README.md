@@ -43,7 +43,7 @@ Projektā tiek izmantots:
 3. [Lejupielādējam WAMP](https://sourceforge.net/projects/wampserver/), lai varētu izveidot webserveri.
 4. Instalējam WAMP.
 5. Pārliecinamies par WAMP darbību atverot adresi http://127.0.0.1
-6. !Jāizveido tukšo datubāzi ar nosaukumu __retro_platform__
+6. !Jāizveido tukšo datubāzi ar nosaukumu __auction_platform__
 6. Dodamies uz WAMP atrašanās vietu (parasti c:\wamp{64}\www).
 7. Veicam labo klikšķi un izvēlamies opciju "git bash here" un izpildam zemāk raksīto komandu.
 `git clone https://github.com/rvtprog-kvalifikacija-20/d42-PavelsZuravlovs-RetroPlatforma.git`
@@ -73,7 +73,7 @@ npm run serve
 –––––––––––––––––––––––––––––––––––––––––––––––
 
 # Datubāze
-Lai ērtāk strādāt ar portālu un gribat aizpildīto datubāzi, iztukšojiet __retro_platform__ datubāzi (neizdzēsiet pašu DB) un importējiet šo failu:
+Lai ērtāk strādāt ar portālu un gribat aizpildīto datubāzi, iztukšojiet __auction_platform__ datubāzi (neizdzēsiet pašu DB) un importējiet šo failu:
 - Database dump (tables + contents): https://pastebin.com/raw/0a5dKt4q
 Lai piesliegties sistēmā, drīkst izmantot vai lietotājvārdu, vai e-pastu; visiem izveidotājiem lietotājiem parole ir `12345678`
 
