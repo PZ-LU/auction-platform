@@ -11,12 +11,18 @@ class AuctionObject extends Model
     *
     * @var string
     */
-   protected $table = 'auction_object';
-
-   /**
+    protected $table = 'auction_object';
+    
+    /**
     * Indicates if the model should be timestamped.
     *
     * @var bool
     */
-   public $timestamps = false;
+    public $timestamps = false;
+}
+
+// Temporary
+class AuctionObjectType
+{
+    public const CAR = 1;
 }

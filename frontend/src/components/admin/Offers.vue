@@ -77,7 +77,7 @@ export default {
       this.fetchAllOffers()
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/offer_categories'
+      const path = 'http://127.0.0.1:8000/api/tag_categories'
       axios
         .get(path)
         .then(res => {

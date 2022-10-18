@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OfferPart extends Model
+class OfferTag extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'offers_parts';
+    protected $table = 'offers_tags';
 
     /**
      * Indicates if the model should be timestamped.

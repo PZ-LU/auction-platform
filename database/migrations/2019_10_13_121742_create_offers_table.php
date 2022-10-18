@@ -20,7 +20,7 @@ class CreateOffersTable extends Migration
             $table->text('body');
             $table->string('contact_phone', 12)->nullable();
             $table->timestamps();
-            $table->enum('status', ['active', 'archived']);
+            $table->enum('status', ['active', 'archived'])->default('active'); // Default couldn't be UPDATED without problems, so editing old migration
             $table->text('preview_image')->nullable();
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

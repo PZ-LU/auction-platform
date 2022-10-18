@@ -182,7 +182,7 @@ export default {
       this.offers = buffer
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/offer_categories'
+      const path = 'http://127.0.0.1:8000/api/tag_categories'
       axios
         .get(path)
         .then(res => {
@@ -262,7 +262,7 @@ export default {
       this.isLoading = true;
       this.isError = false;
       const pagePath = 
-        `http://127.0.0.1:8000/api/offers?page=${this.page_number}&title=${this.offersFilters.title || ''}&description=${this.offersFilters.description || ''}&parts=${this.offersFilters.parts || ''}&category=${this.offersFilters.category || ''}&date=${this.offersFilters.date || ''}`
+        `http://127.0.0.1:8000/api/offers?page=${this.page_number}&title=${this.offersFilters.title || ''}&description=${this.offersFilters.description || ''}&tags=${this.offersFilters.tags || ''}&category=${this.offersFilters.category || ''}&date=${this.offersFilters.date || ''}`
       this.fetchOffers(pagePath);
     },
     closeAddOfferDialog () {

@@ -38,8 +38,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public $timestamps = false;
-
     public function getJWTIdentifier() {
         return $this->getKey();
     }
@@ -47,4 +45,12 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
+}
+
+namespace App\User;
+
+class Status
+{
+    public const ACTIVE = 'active';
+    public const SUSPENDED = 'suspended';
 }

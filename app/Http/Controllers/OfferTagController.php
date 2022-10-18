@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Log;
 
 use App\Offer;
-use App\OfferPart;
-use App\Http\Resources\Offers\OfferPart as OfferPartResources;
+use App\OfferTag;
+use App\Http\Resources\Offers\OfferTag as OfferTagResources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class OfferPartController extends Controller
+class OfferTagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class OfferPartController extends Controller
      */
     public function index()
     {
-        return OfferPartResources::collection(OfferPart::all());
+        return OfferTagResources::collection(OfferTag::all());
     }
 
     /**
@@ -35,23 +35,23 @@ class OfferPartController extends Controller
 
         foreach ($decodedArrayData as $dataChunk) {
             array_push($insertArray, array(
-                'part' => $dataChunk->label,
+                'tag' => $dataChunk->label,
                 'category' => $dataChunk->category,
                 'offer_id' => $offerId
             ));
         }
 
-        OfferPart::insert($insertArray);
+        OfferTag::insert($insertArray);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\OfferPart  $offerPart
+     * @param  \App\OfferTag  $OfferTag
      * @return \Illuminate\Http\Response
      */
     public static function show($offerId)
     {
-        return OfferPartResources::collection(OfferPart::where('offer_id', $offerId)->get());
+        return OfferTagResources::collection(OfferTag::where('offer_id', $offerId)->get());
     }
 }

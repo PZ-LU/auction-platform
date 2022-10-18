@@ -51,11 +51,11 @@
       <h3
         class="font-weight-light"
       >
-        Parts
+        Tags
       </h3>
       <v-text-field
         clearable
-        v-model="parts"
+        v-model="tags"
         outlined
         placeholder="Offer Title"
         dense
@@ -159,7 +159,7 @@ export default {
     return {
       title: null,
       description: null,
-      parts: null,
+      tags: null,
       category: null,
       date: null,
 
@@ -168,7 +168,7 @@ export default {
       sortingExpanded: false,
 
       dateSorting: [
-        'accending',
+        'ascending',
         'descending'
       ]
     }
@@ -182,7 +182,7 @@ export default {
     clearFilters () {
       this.title = null
       this.description = null
-      this.parts = null
+      this.tags = null
       this.category = null
 
       this.fetchFilteredOffers()
@@ -191,7 +191,7 @@ export default {
       const offerFilters = {
         title: this.title,
         description: this.description,
-        parts: this.parts,
+        tags: this.tags,
         category: this.category,
         date: this.date
       }

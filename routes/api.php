@@ -82,7 +82,7 @@ Route::prefix('offers')->group(function () {
 });
 Route::get('/offer/{id}', 'OfferController@show');
 Route::get('/offer_media/{id}', 'OfferController@media');
-Route::get('/offer_categories', 'OfferCategoryController@index');
+Route::get('/tag_categories', 'TagCategoryController@index');
 
 Route::get('/auctions/{status?}', 'AuctionController@index');
 

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OfferCategory extends Model
+class TagCategory extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'offers_category';
+    protected $table = 'tag_category';
 
     /**
      * Indicates if the model should be timestamped.

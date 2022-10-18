@@ -63,7 +63,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        if ($user->status == 'active') {
+        if ($user->status == User\Status::ACTIVE) {
             return response([
                 'data' => $user
             ])
@@ -84,7 +84,7 @@ class AuthController extends Controller
 
     public function user (Request $request) {
         $user = User::find(Auth::user()->id);
-        if ($user->status == 'active') {
+        if ($user->status == User\Status::ACTIVE) {
             return response()->json([
                 'status' => 'success',
                 'data' => $user
@@ -98,7 +98,7 @@ class AuthController extends Controller
         try {
             $user = auth()->userOrFail();
             if ($user) {
-                if ($user->status == 'active') {
+                if ($user->status == User\Status::ACTIVE) {
                     $newToken = auth()->refresh();
                     return response()->json(['status' => 'success'], 200)->header('Authorization', $newToken);
                 } else {
