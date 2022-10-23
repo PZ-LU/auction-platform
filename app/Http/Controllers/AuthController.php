@@ -37,7 +37,7 @@ class AuthController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->surname = $request->surname;
-        $user->avatar_path = Storage::disk('public')->url('service/user_placeholder.jpg');
+        $user->avatar_path = Storage::disk('public')->url('resources/default.svg');
         $user->username = $request->username;
         $user->gender = $request->gender;
         $user->email = $request->email;

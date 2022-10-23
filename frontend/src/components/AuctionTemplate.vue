@@ -109,7 +109,6 @@
 export default {
   components: {
     ImageLightbox: () => import('./helpers/ImageLightbox'),
-    ModalDialog: () => import('./helpers/ModalDialog'),
     PayPal: () => import('./PayPal')
   },
   props: {

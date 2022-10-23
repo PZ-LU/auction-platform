@@ -8,15 +8,9 @@
     <h1
       class="display-4 font-weight-light"
     >
-      Retro Platfrom
+      Auction Platform
     </h1>
     <v-divider />
-    <h3 
-      class="subtitling caption font-weight-medium"
-    >
-      Place for the car enthusiasts
-    </h3>
-
     <v-container
       class="slogan-container"
     >
@@ -27,13 +21,19 @@
         Fast and Reliable.
       </div>
     </v-container>
+    <h1
+      class="display-5 font-weight-light"
+    >Latest auction entries [3 days]</h1>
+    <AuctionFeed/>
   </v-container>
 </template>
 
 <script>
 
 export default {
-
+  components: {
+    AuctionFeed: () => import('../components/AuctionFeed')
+  }
 }
 </script>
 

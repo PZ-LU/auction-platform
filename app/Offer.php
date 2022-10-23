@@ -12,11 +12,3 @@ class Offer extends Model
 
     public $timestamps = true;
 }
-
-namespace App\Offer;
-
-class Status
-{
-    public const ACTIVE = 'active';
-    public const ARCHIVED = 'archived';
-}
