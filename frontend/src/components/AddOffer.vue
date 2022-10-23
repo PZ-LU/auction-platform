@@ -144,6 +144,7 @@
                     v-model="files"
                     :rules="[scoped_rules.filesRequired]"
                     multiple
+                    show-size
                     width="50%"
                   />
                   <v-container>
@@ -364,6 +365,10 @@ export default {
         offerData.append('tags', JSON.stringify(this.tagObjects))
         // offerData
         for (let i = 0; i < this.files.length; i++) {
+          if (this.files[i].size / 1024 / 1024 > 1.5) {
+            alert("Single image size cannot exceed 1.5 MiB!")
+            return
+          }
           offerData.append('images[]', this.files[i], this.files[i].name)                    
         }
 

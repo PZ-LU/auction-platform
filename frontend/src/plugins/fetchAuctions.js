@@ -17,22 +17,47 @@ const fetchAuctions = async (path, type = 'active') => {
 
             let charityAuctions;
             let commercialAuctions;
-            if (type === 'active') {
-                charityAuctions = auctions.find(auction => {
-                    return auction.type === 'charity'
-                });
-    
-                commercialAuctions = auctions.find(auction => {
-                    return auction.type === 'commercial'
-                });
-            } else {
-                charityAuctions = auctions.filter(auction => {
-                    return auction.type === 'charity'
-                });
-    
-                commercialAuctions = auctions.filter(auction => {
-                    return auction.type === 'commercial'
-                });
+            
+            switch (type) {
+                case 'active':
+                    charityAuctions = auctions.find(auction => {
+                        return auction.type === 'charity'
+                    });
+        
+                    commercialAuctions = auctions.find(auction => {
+                        return auction.type === 'commercial'
+                    });
+                    break;
+            
+                case 'dismissed':
+                    charityAuctions = auctions.filter(auction => {
+                        return auction.type === 'charity'
+                    });
+        
+                    commercialAuctions = auctions.filter(auction => {
+                        return auction.type === 'commercial'
+                    });
+                    break;
+
+                case 'latest':
+                    charityAuctions = auctions.filter(auction => {
+                        let now = new Date();
+                        return (
+                            auction.type === 'charity'
+                            && new Date(auction.started_at) <= now
+                            && new Date(auction.started_at) >= new Date(now.getDate() - 3)
+                        )
+                    });
+        
+                    commercialAuctions = auctions.filter(auction => {
+                        let now = new Date();
+                        return (
+                            auction.type === 'commercial'
+                            && new Date(auction.started_at) <= now
+                            && new Date(auction.started_at) >= new Date(now.getDate() - 3)
+                        )
+                    });
+                    break;
             }
 
             resolve({

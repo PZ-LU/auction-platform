@@ -6,7 +6,7 @@
 
 <style scoped>
   .loading {
-    background-image: url("../../assets/logo.png");
+    background-image: url("../../assets/loading.svg");
     position: absolute;
     width: 30px;
     height: 30px;

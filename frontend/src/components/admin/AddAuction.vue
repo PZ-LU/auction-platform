@@ -26,6 +26,7 @@
                   label="Auction Image"
                   prepend-icon="mdi-camera"
                   :rules="[rules.required]"
+                  show-size
                 />
               </v-col>
             </v-row>
@@ -180,6 +181,10 @@ export default {
         const newAuctionData = new FormData()
         newAuctionData.append('type', this.pType)
         newAuctionData.append('object_name', this.objectName)
+        if (this.image.size / 1024 / 1024 > 1.5) {
+            alert("Single image size cannot exceed 1.5 MiB!")
+            return
+        }
         newAuctionData.append('preview_image', this.image, this.image.name)
         
         switch (this.pType) {

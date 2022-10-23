@@ -9,14 +9,16 @@
               height="200px" 
               width="200px" 
               :src="$auth.user().avatar_path"
-              @click="$refs.avatarInput.click()"
+              @click="$refs.avatarInput.$refs.input.click()"
             />
-            <input
-              @change="handleUpload()"
-              type="file"
+            <v-file-input
+              @click="handleUpload"
+              @click:clear="handleUpload"
+              v-model="avatarFile"
+              show-size
               ref="avatarInput"
-              style="display: none;"
-            >
+              width="10px"
+            />
             <v-btn
               v-if="showAvatarUpdateButton"
               @click="uploadAvatar()"
@@ -417,7 +419,6 @@
 <script>
 import axios from 'axios'
 import external_rules from '@/plugins/rules/rules.js'
-import fetchAuctions from '@/plugins/fetchAuctions.js'
 
 export default {
   components: {
@@ -483,6 +484,22 @@ export default {
     this.fetchCategories()
 
     this.fetchUserAuctions()
+  },
+  watch: {
+    avatarFile: {
+      handler: function () {
+        if (this.avatarFile) {
+          let fileSize = this.avatarFile.size / 1024 / 1024
+          if (fileSize > 1.5) {
+            this.avatarFile = null
+            alert("Image size cannot exceed 1.5 MiB!")
+          } else
+            this.showAvatarUpdateButton = true
+        } else {
+          this.showAvatarUpdateButton = false
+        }
+      }
+    }
   },
   methods: {
     async fetchUserAuctions() {
@@ -652,11 +669,9 @@ export default {
         })
     },
     handleUpload () {
-      if (this.$refs.avatarInput) {
-        this.avatarFile = this.$refs.avatarInput.files[0]
-        if (this.avatarFile) {
-          this.showAvatarUpdateButton = true
-        }
+      console.log("Click")
+      if (this.avatarFile) {
+        this.showAvatarUpdateButton = true
       }
     },
     uploadAvatar () {
