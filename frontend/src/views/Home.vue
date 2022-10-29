@@ -23,8 +23,10 @@
     </v-container>
     <h1
       class="display-5 font-weight-light"
-    >Latest auction entries [3 days]</h1>
-    <AuctionFeed/>
+    >
+      Latest auction entries [3 days]
+    </h1>
+    <AuctionFeed />
   </v-container>
 </template>
 

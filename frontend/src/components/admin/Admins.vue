@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     fetchAllUsers () {
-      axios
-        .get('http://127.0.0.1:8000/api/auth/users/service')
+      this.$axios
+        .get('auth/users/service')
         .then(res => {
           let incomingUsers
           if (res.data.users.length) {

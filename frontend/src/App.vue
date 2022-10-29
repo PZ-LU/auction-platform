@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Login from '@/components/Login'
 import { mapGetters, mapMutations } from 'vuex'
 import fetchFavoriteOffers from './plugins/fetchFavoriteOffers'

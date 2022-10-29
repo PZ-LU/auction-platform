@@ -135,7 +135,7 @@
         <h1
           class="display-3 font-weight-light"
         >
-          Retro Forum
+          Auction Forum
         </h1>
         <v-divider />
       </v-col>
@@ -179,9 +179,8 @@ export default {
       this.response = null
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/forum/categories'
-      axios
-        .get(path)
+      this.$axios
+        .get('forum/categories')
         .then(res => {
           const {data:{data}} = res
           if (data && !data.length){
@@ -208,8 +207,8 @@ export default {
             'Content-Type': 'multipart/form-data' 
           }
         }
-        axios
-          .post('http://127.0.0.1:8000/api/auth/forum/topic/add', topicData, config)
+        this.$axios
+          .post('auth/forum/topic/add', topicData, config)
           .then (res => {
             this.response = 'Your topic will be created!'
             this.fetchCategories()

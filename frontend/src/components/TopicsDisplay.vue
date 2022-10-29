@@ -74,8 +74,8 @@ export default {
     },
     fetchTopics () {
       this.topics = []
-      const path = `http://127.0.0.1:8000/api/forum/topics?category=${this.pCategory.id}`
-      axios
+      const path = `forum/topics?category=${this.pCategory.id}`
+      this.$axios
         .get(path)
         .then(res => {
           const {data:{data}} = res

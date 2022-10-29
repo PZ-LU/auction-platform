@@ -92,8 +92,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token(),
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/user/setRole', { user_id: user.id, role: role }, config)
+      this.$axios
+        .post('auth/user/setRole', { user_id: user.id, role: role }, config)
         .then(res => {
           this.$emit('update')
         })
@@ -107,8 +107,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token(),
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/user/setStatus', { user_id: user.id, status: status }, config)
+      this.$axios
+        .post('auth/user/setStatus', { user_id: user.id, status: status }, config)
         .then(res => {
           this.$emit('update')
         })

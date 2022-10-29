@@ -85,7 +85,7 @@
         >
           Participate
         </v-btn>
-        <modal-dialog
+        <ModalDialog
           v-if="showPayPalDialog"
           class="modal"
         >
@@ -99,7 +99,7 @@
               />
             </v-container>
           </v-card>
-        </modal-dialog>
+        </ModalDialog>
       </v-container>
     </v-card-actions>
   </v-card>
@@ -109,6 +109,7 @@
 export default {
   components: {
     ImageLightbox: () => import('./helpers/ImageLightbox'),
+    ModalDialog: () => import('./helpers/ModalDialog'),
     PayPal: () => import('./PayPal')
   },
   props: {
@@ -189,7 +190,7 @@ export default {
     getTotalAmount () {
       this.total_amount = 0
       this.auctionParticipants.map(participant => {
-        this.total_amount += participant.amount
+        this.total_amount += parseInt(participant.amount)
       })
     },
     imgSrc () {

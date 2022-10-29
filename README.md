@@ -1,4 +1,4 @@
-# Retro Platforma: Izsoļu un sludinājumu portāls
+# Izsoļu un sludinājumu portāls
 
 # Projekta apraksts
 

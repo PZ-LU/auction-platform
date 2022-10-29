@@ -1,6 +1,6 @@
 module.exports = {
   "devServer": {
-    "proxy": "http://retro-platform.qd/"
+    "proxy": "http://auction-platform.qd/"
   },
   "outputDir": "../public",
   "indexPath": "index.html",

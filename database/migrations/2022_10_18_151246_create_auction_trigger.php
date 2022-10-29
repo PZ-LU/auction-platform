@@ -11,18 +11,16 @@ class CreateAuctionTrigger extends Migration
         DB::unprepared('DROP TRIGGER IF EXISTS auction_status ON auctions');
         DB::unprepared('
             CREATE OR REPLACE FUNCTION auction_status_change()
-                RETURNS TRIGGER
-                LANGUAGE PLPGSQL
-                AS
-            $$
+                RETURNS TRIGGER AS $a_status$
             BEGIN
-                IF NEW.finished_at IS NOT NULL THEN
-                    SET NEW.status = "dismissed";
+                CASE WHEN NEW.finished_at IS NOT NULL THEN
+                    NEW.status = \'dismissed\';
                 ELSE
-                    SET NEW.status = "active";
-                END IF;
+                    NEW.status = \'active\';
+                END CASE;
+                RETURN NEW;
             END;
-            $$
+            $a_status$ LANGUAGE plpgsql;
         ');
 
         DB::unprepared('

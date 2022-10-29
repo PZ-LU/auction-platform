@@ -378,8 +378,8 @@ export default {
             'Content-Type': 'multipart/form-data' 
           }
         }
-        axios
-          .post('http://127.0.0.1:8000/api/auth/offer/add', offerData, config)
+        this.$axios
+          .post('/auth/offer/add', offerData, config)
           .then (res => {
             switch (res.status) {
               case 200:

@@ -40,21 +40,24 @@ const fetchAuctions = async (path, type = 'active') => {
                     break;
 
                 case 'latest':
+                    let now = new Date();
+                    let _3daysback = new Date();
+                    _3daysback.setDate(now.getDate() - 3);
+
                     charityAuctions = auctions.filter(auction => {
                         let now = new Date();
                         return (
                             auction.type === 'charity'
                             && new Date(auction.started_at) <= now
-                            && new Date(auction.started_at) >= new Date(now.getDate() - 3)
+                            && new Date(auction.started_at) >= _3daysback
                         )
                     });
         
                     commercialAuctions = auctions.filter(auction => {
-                        let now = new Date();
                         return (
                             auction.type === 'commercial'
                             && new Date(auction.started_at) <= now
-                            && new Date(auction.started_at) >= new Date(now.getDate() - 3)
+                            && new Date(auction.started_at) >= _3daysback
                         )
                     });
                     break;

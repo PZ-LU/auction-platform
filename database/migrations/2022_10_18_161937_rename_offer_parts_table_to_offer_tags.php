@@ -27,5 +27,8 @@ class RenameOfferPartsTableToOfferTags extends Migration
     public function down()
     {
         Schema::rename('offers_tags', 'offers_parts');
+        Schema::table('offers_parts', function (Blueprint $table) {
+            $table->renameColumn('tag', 'part');
+        });
     }
 }

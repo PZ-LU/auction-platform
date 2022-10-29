@@ -222,8 +222,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token(),
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/forum/comment/delete', { comment: commentId}, config)
+      this.$axios
+        .post('auth/forum/comment/delete', { comment: commentId}, config)
         .then (res => {
           this.showDeleteCommentDialog = false
           this.fetchComments()
@@ -238,8 +238,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token(),
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/forum/topic/delete', { topic: this.pTopic.id}, config)
+      this.$axios
+        .post('auth/forum/topic/delete', { topic: this.pTopic.id}, config)
         .then (res => {
           this.closeTopic()
         })
@@ -249,8 +249,8 @@ export default {
     },
     fetchComments () {
       this.comments = []
-      const path = `http://127.0.0.1:8000/api/forum/comments?topic=${this.pTopic.id}`
-      axios
+      const path = `forum/comments?topic=${this.pTopic.id}`
+      this.$axios
         .get(path)
         .then(res => {
           const {data:{data}} = res
@@ -278,8 +278,8 @@ export default {
             'Content-Type': 'multipart/form-data' 
           }
         }
-        axios
-          .post('http://127.0.0.1:8000/api/auth/forum/comment/add', commentData, config)
+        this.$axios
+          .post('auth/forum/comment/add', commentData, config)
           .then (res => {
             this.$refs.comForm.reset()
             this.fetchComments()
