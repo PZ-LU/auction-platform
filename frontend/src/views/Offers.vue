@@ -165,7 +165,7 @@ export default {
     }
   },
   created() {
-    this.fetchOffers('http://127.0.0.1:8000/api/offers')
+    this.fetchOffers('offers')
     this.fetchCategories()
   },
   methods: {
@@ -182,9 +182,8 @@ export default {
       this.offers = buffer
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/tag_categories'
-      axios
-        .get(path)
+      this.$axios
+        .get('tag_categories')
         .then(res => {
           const {data:{data}} = res
           if (data && !data.length){
@@ -199,7 +198,7 @@ export default {
         })
     },
     fetchOffers (path) {
-      axios
+      this.$axios
         .get(path)
         .then(res => {
           const {data:{data}} = res
@@ -262,7 +261,7 @@ export default {
       this.isLoading = true;
       this.isError = false;
       const pagePath = 
-        `http://127.0.0.1:8000/api/offers?page=${this.page_number}&title=${this.offersFilters.title || ''}&description=${this.offersFilters.description || ''}&tags=${this.offersFilters.tags || ''}&category=${this.offersFilters.category || ''}&date=${this.offersFilters.date || ''}`
+        `offers?page=${this.page_number}&title=${this.offersFilters.title || ''}&description=${this.offersFilters.description || ''}&tags=${this.offersFilters.tags || ''}&category=${this.offersFilters.category || ''}&date=${this.offersFilters.date || ''}`
       this.fetchOffers(pagePath);
     },
     closeAddOfferDialog () {

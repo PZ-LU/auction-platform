@@ -77,9 +77,8 @@ export default {
       this.fetchAllOffers()
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/tag_categories'
-      axios
-        .get(path)
+      this.$axios
+        .get('tag_categories')
         .then(res => {
           const {data:{data}} = res
           if (data && !data.length){
@@ -101,8 +100,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token(),
         }
       }
-      axios
-        .get('http://127.0.0.1:8000/api/auth/offers')
+      this.$axios
+        .get('auth/offers')
         .then(res => {
           const {data:{data}} = res
           data.map(offer => {

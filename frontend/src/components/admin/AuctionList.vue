@@ -119,8 +119,8 @@ export default {
       }
       const finishingAuctionData = new FormData()
       finishingAuctionData.append('auction_id', auction.id)
-      axios
-        .post('http://127.0.0.1:8000/api/auth/auction/finish', finishingAuctionData, config)
+      this.$axios
+        .post('auth/auction/finish', finishingAuctionData, config)
           .then (res => {
             this.showFinishDialog = true
           })

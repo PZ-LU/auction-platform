@@ -160,8 +160,8 @@ export default {
       } else {
         favoritedOfferData.append('action', 'delete')
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/offers/setFavorite', favoritedOfferData, config)
+      this.$axios
+        .post('auth/offers/setFavorite', favoritedOfferData, config)
         .then(async () => {
           const result = await fetchFavoriteOffers(this.$auth.user().id)
           if (result) {

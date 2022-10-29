@@ -127,14 +127,14 @@ export default {
     fetchActiveAuctions() {
       this.activeCharityAuction = null
       this.activeCommercialAuction = null
-      fetchAuctions('http://127.0.0.1:8000/api/auctions')
+      fetchAuctions('auctions')
         .then(res => {
           this.activeCharityAuction = res.charityAuctions
           this.activeCommercialAuction = res.commercialAuctions
         })
     },
     fetchDismissedAuctions() {
-      fetchAuctions('http://127.0.0.1:8000/api/auctions/dismissed', 'dismissed')
+      fetchAuctions('auctions/dismissed', 'dismissed')
       .then(res => {
         this.charityAuctions = res.charityAuctions
         this.commercialAuctions = res.commercialAuctions

@@ -172,8 +172,8 @@ export default {
           'Authorization': 'Bearer '+this.$auth.token()
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/offer/delete_soft', { id : this.pOffer.id }, config)
+      this.$axios
+        .post('auth/offer/delete_soft', { id : this.pOffer.id }, config)
         .then(res => {
           this.$emit('closeShowDialog')
         })
@@ -186,8 +186,8 @@ export default {
       return category.label
     },
     getImages () {
-      const req = 'http://127.0.0.1:8000/api/offer_media/'+this.pOffer.id
-      axios
+      const req = 'offer_media/'+this.pOffer.id
+      this.$axios
         .get (req)
         .then ((result) => {
           result.data.photo_path.forEach(element => {
@@ -199,8 +199,8 @@ export default {
         })
     },
     async getTags () {
-      const req = 'http://127.0.0.1:8000/api/offer/'+this.pOffer.id
-      axios
+      const req = 'offer/'+this.pOffer.id
+      this.$axios
         .get (req)
         .then ((result) => {
           const {data:{data}} = result

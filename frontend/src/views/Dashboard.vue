@@ -459,7 +459,7 @@ export default {
       categories: [],
       isEmptySet: false,
 
-      userOffersPath: 'http://127.0.0.1:8000/api/auth/offer/get',
+      userOffersPath: 'auth/offer/get',
 
       avatarFile: null,
       showAvatarUpdateButton: false,
@@ -478,13 +478,6 @@ export default {
       return this.$store.getters['favoriteOffers']
     }
   },
-  created() {
-    this.fetchProfileOffers(this.userOffersPath)
-    this.fetchOffers()
-    this.fetchCategories()
-
-    this.fetchUserAuctions()
-  },
   watch: {
     avatarFile: {
       handler: function () {
@@ -501,6 +494,12 @@ export default {
       }
     }
   },
+  created() {
+    this.fetchProfileOffers(this.userOffersPath)
+    this.fetchOffers()
+    this.fetchCategories()
+    this.fetchUserAuctions()
+  },
   methods: {
     async fetchUserAuctions() {
       const userData = new FormData()
@@ -511,8 +510,8 @@ export default {
           'Content-Type': 'multipart/form-data' 
         }
       }
-      axios
-        .post(`http://127.0.0.1:8000/api/auth/auctions/`, userData, config)
+      this.$axios
+        .post(`auth/auctions/`, userData, config)
         .then(res => {
           const {data} = res
           const activeAutcions = data[0]
@@ -567,7 +566,8 @@ export default {
         password: this.password
       }
 
-      axios.post('http://127.0.0.1:8000/api/auth/userUpdate',
+      this.$axios
+      .post('auth/userUpdate',
         { 
           id: this.$auth.user().id,
           email: this.email,
@@ -598,8 +598,8 @@ export default {
     deleteAcc () {
       this.$auth.logout({
         success: function () {
-          axios
-            .delete('http://127.0.0.1:8000/api/auth/userDelete', this.$auth.user().id)
+          this.$axios
+            .delete('auth/userDelete', this.$auth.user().id)
             .catch( err => {
               console.log('error: ', err)
             })
@@ -611,9 +611,8 @@ export default {
       })
     },
     fetchCategories () {
-      const path = 'http://127.0.0.1:8000/api/tag_categories'
-      axios
-        .get(path)
+      this.$axios
+        .get('tag_categories')
         .then(res => {
           const {data:{data}} = res
           if (data && !data.length){
@@ -627,8 +626,8 @@ export default {
         })
     },
     fetchOffers () {
-      axios
-        .get('http://127.0.0.1:8000/api/offers/getAll')
+      this.$axios
+        .get('offers/getAll')
         .then(res => {
           const {data:{data}} = res
           let newBookmarks = []
@@ -654,7 +653,7 @@ export default {
           'Content-Type': 'multipart/form-data' 
         }
       }
-      axios
+      this.$axios
         .post(path, offerData, config)
         .then(res => {
           const {data:{data}} = res
@@ -685,8 +684,8 @@ export default {
           'Content-Type': 'multipart/form-data' 
         }
       }
-      axios
-        .post('http://127.0.0.1:8000/api/auth/userUpdateAvatar', avatarInfo, config)
+      this.$axios
+        .post('auth/userUpdateAvatar', avatarInfo, config)
         .then(res => {
           this.$auth.fetch()
         })

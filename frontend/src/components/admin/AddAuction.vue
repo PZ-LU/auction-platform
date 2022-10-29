@@ -205,8 +205,8 @@ export default {
           }
         }
 
-        axios
-          .post('http://127.0.0.1:8000/api/auth/auction/add', newAuctionData, config)
+        this.$axios
+          .post('auth/auction/add', newAuctionData, config)
           .then (res => {
             this.destroyDialog()
             this.response = `Auction successfully created!`

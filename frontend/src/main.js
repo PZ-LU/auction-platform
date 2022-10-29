@@ -20,7 +20,8 @@ Vue.use(VueRouter)
 
 // Set Vue authentication
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+axios.defaults.baseURL = `${process.env.VUE_APP_URL}:${process.env.VUE_APP_PORT}/api`
+Vue.prototype.$axios = axios
 Vue.use(VueAuth, auth)
 
 

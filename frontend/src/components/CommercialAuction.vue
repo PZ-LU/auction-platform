@@ -234,8 +234,8 @@ export default {
       auctionBidData.append('user_id', this.$auth.user().id)
       auctionBidData.append('amount', this.bid)
 
-      axios
-        .post('http://127.0.0.1:8000/api/auth/auction/checkBid', auctionBidData, config)
+      this.$axios
+        .post('auth/auction/checkBid', auctionBidData, config)
         .then (res => {
           console.log(res)
         })
