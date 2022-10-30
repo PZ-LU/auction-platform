@@ -20,26 +20,57 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($status = Offer\Status::ACTIVE)
+    public function index(Request $request)
     {
+
+        $status = $request->status? $request->status : Offer\Status::ACTIVE;
+        
+        if ($request->limit) {
+            $limit = $request->limit;
+        } elseif ($status == Offer\Status::ACTIVE) {
+            $limit = 1;
+        } else {
+            $limit = -1;
+        }
+
         $raw_auctions = new Auction;
         $decoded_auctions = json_decode($raw_auctions->all());
 
-        $filteredAuction = array_filter($decoded_auctions, function($auction) use ($status) {
-            return $auction->status == $status;
-        });
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $out->writeln($request->status);
+        $out->writeln($limit);
 
-        if (sizeof($filteredAuction) == 0) {
+        if ($status != Offer\Status::ALL) {
+            $decoded_auctions = array_filter($decoded_auctions, function($auction) use ($status) {
+                return $auction->status == $status;
+            });
+        }
+
+        if ($limit > 0) {
+            $activeCharityAuctions = array_filter($decoded_auctions, function($auction) use ($status) {
+                return $auction->type == 'charity';
+            });
+            $activeCommercialAuctions = array_filter($decoded_auctions, function($auction) use ($status) {
+                return $auction->type == 'commercial';
+            });
+            
+            $activeCharityAuctions = array_slice($activeCharityAuctions, 0, $limit);
+            $activeCommercialAuctions = array_slice($activeCommercialAuctions, 0, $limit);
+
+            $decoded_auctions = array_merge($activeCharityAuctions, $activeCommercialAuctions);
+        }
+
+        if (sizeof($decoded_auctions) == 0) {
             return [];
         }
 
-        foreach ($filteredAuction as $auction) {
+        foreach ($decoded_auctions as $auction) {
             $objectIds[] = $auction->object_id;
         }
 
         $auction_objects = json_decode(json_encode($this->getAuctionObjects(AuctionObject::all(), $objectIds)), true);
 
-        foreach ($filteredAuction as $auction) {
+        foreach ($decoded_auctions as $auction) {
             foreach ($auction_objects as $object) {
                 if ($object['id'] == $auction->object_id) {
                     $auction->auction_object = $object;
@@ -49,12 +80,13 @@ class AuctionController extends Controller
             $auction->auction_data = $this->getAuctionTypeData($auction->id, $auction->type);
         }
 
-        return new AuctionFullDataSetResources($filteredAuction);
+        return new AuctionFullDataSetResources($decoded_auctions);
     }
 
     public function getUserAuctions(Request $request) {
-        $activeAuctions = $this->index();
-        $dismissedAuctions = $this->index('dismissed');
+        $activeAuctions = $this->index($request);
+        $request->status = 'dismissed';
+        $dismissedAuctions = $this->index($request);
         $newAuctions = [];
         for ($i=0; $i < 2; $i++) {
             $filteredAuctions = [];

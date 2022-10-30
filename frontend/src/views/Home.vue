@@ -24,7 +24,7 @@
     <h1
       class="display-5 font-weight-light"
     >
-      Latest auction entries [3 days]
+      Latest auction entries
     </h1>
     <AuctionFeed />
   </v-container>
