@@ -4,13 +4,17 @@
       <v-row>
         <v-col lg="2">
           <v-card>
-            <v-img
-              class="mx-auto" 
-              height="200px" 
-              width="200px" 
-              :src="$auth.user().avatar_path"
-              @click="$refs.avatarInput.$refs.input.click()"
-            />
+            <div
+              class="profile-img"
+            >
+              <v-img
+                class="mx-auto " 
+                height="200px" 
+                width="200px" 
+                :src="$auth.user().avatar_path"
+                @click="$refs.avatarInput.$refs.input.click()"
+              />
+            </div>
             <v-file-input
               @click="handleUpload"
               @click:clear="handleUpload"
@@ -700,6 +704,12 @@ export default {
 <style scoped>
   .auction-card {
     margin-top: 30px;
+  }
+  .profile-img {
+    border: 1px solid lightgrey;
+  }
+  .profile-img:hover {
+    cursor: pointer;
   }
   .offers-tabs {
     min-width: 100%;

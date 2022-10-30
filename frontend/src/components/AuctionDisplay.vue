@@ -4,14 +4,22 @@
   >
     <ImageLightbox
       :src="pAuction.auction_object.preview_image"
-      class="img"
+      :class="{ img: !pMin, 'img-min': pMin }"
     />
 
     <v-divider
       vertical
     />
 
+    <h4
+      v-if="pMin"
+      class="padded-col"
+    >
+      {{ pAuction.auction_object.name }}
+    </h4>
+
     <h2
+      v-else
       class="title"
     >
       {{ pAuction.auction_object.name }}
@@ -21,17 +29,21 @@
       vertical
     />
 
-    <v-container>
+    <v-container
+      :class="{ 'padded-col': pMin }"
+    >
       <v-row
         justify="center"
+        :class="{ 'font-min': pMin }"
       >
-        Started At: {{ new Date(pAuction.started_at).toLocaleDateString() }}
+        Started: {{ new Date(pAuction.started_at).toLocaleDateString() }}
       </v-row>
       <v-row
         v-if="pAuction.finished_at"
         justify="center"
+        :class="{ 'font-min': pMin }"
       >
-        Finished At: {{ new Date(pAuction.finished_at).toLocaleDateString() }}
+        Finished: {{ new Date(pAuction.finished_at).toLocaleDateString() }}
       </v-row>
     </v-container>
 
@@ -48,9 +60,12 @@
       >
         <v-col
           class="participant-col"
+          :class="{ 'font-min': pMin }"
         >
           Goal
-          <v-chip>
+          <v-chip
+            :class="{ 'font-min': pMin }"
+          >
             {{ pAuction.auction_data[0].goal }} EUR
           </v-chip>
         </v-col>
@@ -63,7 +78,9 @@
       class="commercial-container"
       v-if="isCommercial"
     >
-      <v-row>
+      <v-row
+        :class="{ 'min-row': pMin }"
+      >
         <v-col
           v-if="winner"
           cols="3"
@@ -82,13 +99,16 @@
           v-if="winner"
           cols="4"
           class="participant-col"
+          :class="{ 'font-min': pMin }"
         >
           {{ winner.username }}
         </v-col>
         <v-col
           class="participant-col"
         >
-          <span>Starting bid</span>
+          <span
+            :class="{ 'font-min': pMin }"
+          >Starting bid</span>
           <v-row>
             <v-chip>
               {{ pAuction.auction_data[0].start_bid }} EUR
@@ -96,6 +116,7 @@
           </v-row>
           <span
             v-if="winner"
+            :class="{ 'font-min': pMin }"
           >Leading bid</span>
           <v-row
             v-if="winner"
@@ -166,10 +187,25 @@ export default {
     align-items: center;
     display: inline-flex;
   }
+  .font-min {
+    font-size: small;
+  }
   .img {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 130px;
+    max-height: 130px;
     margin-right: 20px;
+  }
+  .img-min {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 20px;
+  }
+  .min-row {
+    width: max-content;
+  }
+  .padded-col {
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .participant-col {
     align-self: center;

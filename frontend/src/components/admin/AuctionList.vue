@@ -133,7 +133,7 @@ export default {
         switch (this.activeAuction.type) {
           case 'charity':
             let sum = 0
-            this.activeAuction.participants.map(participant => sum += participant.amount)
+            this.activeAuction.participants.map(participant => sum += parseInt(participant.amount))
             if (sum >= this.activeAuction.auction_data[0].goal) {
               return true
             }

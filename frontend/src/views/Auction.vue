@@ -134,14 +134,14 @@ export default {
   },
   methods: {
     async fetchActiveAuctions() {
-      fetchAuctions('auctions')
+      fetchAuctions()
         .then(res => {
-          this.activeCharityAuction = res.charityAuctions
-          this.activeCommercialAuction = res.commercialAuctions
+          this.activeCharityAuction = res.charityAuctions[0]
+          this.activeCommercialAuction = res.commercialAuctions[0]
         })
     },
     async fetchDismissedAuctions() {
-      fetchAuctions('auctions/dismissed', 'dismissed')
+      fetchAuctions('dismissed')
         .then(res => {
           this.charityAuctions = res.charityAuctions
           this.commercialAuctions = res.commercialAuctions
