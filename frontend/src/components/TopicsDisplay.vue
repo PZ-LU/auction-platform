@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
     Topic: () => import('./Topic.vue')
@@ -59,6 +57,9 @@ export default {
     return {
       topics: []
     }
+  },
+  created() {
+    this.fetchTopics()
   },
   watch: {
     pCategory: function () {

@@ -1,6 +1,7 @@
 <template>
   <v-card
     outlined
+    class="topic"
   >
     <v-card-title>
       {{ pTopic.title }}
@@ -66,7 +67,7 @@
     <v-card-subtitle>
       Added by: {{ pTopic.author_data.username }}
       <v-spacer />
-      Added on: {{ pTopic.created_at }}
+      Added: {{ pTopic.created_at }}
     </v-card-subtitle>
     <v-card-text
       class="font-weight-regular"
@@ -83,7 +84,7 @@
         >
           <v-textarea
             v-model="body"
-            :rules="[rules.required]"
+            :rules="[rules.required, rules.length.commentBody]"
             :counter="600"
             rows="4"
             placeholder="Comment ..."
@@ -99,24 +100,29 @@
         </v-form>
       </v-container>
       <v-container
-        style="max-height: 700px; overflow: auto;"
         v-if="comments.length"
       >
         <v-card
           outlined
         >
           <v-card-text>
-            <v-container>
+            <v-container
+              style="margin-bottom: -15px;"
+            >
               <v-row
                 v-for="comment in comments"
                 :key="comment.id"
+                class="comment-row"
               >
-                <v-row>
+                <v-row
+                  class="comment-contents-row"
+                >
                   <v-col
-                    cols="3"
+                    cols="1"
+                    class="profile-col"
                   >
                     <v-row
-                      class="profile-col"
+                      class="profile-row"
                     >
                       <v-img
                         class="profile-pic"
@@ -126,64 +132,77 @@
                       />
                     </v-row>
                     <v-row
-                      class="profile-col"
+                      class="profile-row"
                     >
                       {{ comment.author_data.username }}
                     </v-row>
                   </v-col>
 
-                  <v-col>
-                    {{ comment.body }}
-                  </v-col>
-                </v-row>
-                
-                <v-row>
-                  Added on: {{ comment.created_at }}
-                </v-row>
-                <v-dialog
-                  v-if="$auth.user().id && ($auth.user().id === comment.author_id || $auth.user().role !== 'user')"
-                  v-model="comment.dialog"
-                >
-                  <template
-                    #activator="{ on }"
+                  <v-col
+                    cols="1"
                   >
-                    <v-btn
-                      icon
-                      v-on="on"
-                      color="error"
-                      @click="comment.dialog = true"
+                    <v-dialog
+                      v-if="$auth.user().id && ($auth.user().id === comment.author_id || $auth.user().role !== 'user')"
+                      v-model="comment.dialog"
                     >
-                      <v-icon>mdi-delete-forever-outline</v-icon>
-                    </v-btn>
-                  </template>
+                      <template
+                        #activator="{ on }"
+                      >
+                        <v-btn
+                          icon
+                          v-on="on"
+                          color="error"
+                          @click="comment.dialog = true"
+                        >
+                          <v-icon>mdi-delete-forever-outline</v-icon>
+                        </v-btn>
+                      </template>
 
-                  <v-card>
-                    <v-card-title>
-                      Attention!
-                    </v-card-title>
-                    <v-card-text>
-                      Would You really like to delete this comment?
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn
-                        width="50%"
-                        text
-                        color="primary"
-                        @click="deleteComment(comment.id)"
-                      >
-                        Confirm
-                      </v-btn>
-                      <v-btn
-                        width="50%"
-                        text
-                        color="error"
-                        @click="comment.dialog = false"
-                      >
-                        Cancel
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                      <v-card>
+                        <v-card-title>
+                          Attention!
+                        </v-card-title>
+                        <v-card-text>
+                          Would You really like to delete this comment?
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-btn
+                            width="50%"
+                            text
+                            color="primary"
+                            @click="deleteComment(comment.id)"
+                          >
+                            Confirm
+                          </v-btn>
+                          <v-btn
+                            width="50%"
+                            text
+                            color="error"
+                            @click="comment.dialog = false"
+                          >
+                            Cancel
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-col>
+
+                  <v-col
+                    class="date-at"
+                  >
+                    Added: {{ comment.created_at }}
+                  </v-col>
+
+                  <div
+                    style="display: block; min-width: 100%;"
+                  >
+                    <v-row
+                      class="comment-body-row"
+                    >
+                      {{ comment.body }}
+                    </v-row>
+                  </div>
+                </v-row>
               </v-row>
             </v-container>
           </v-card-text>
@@ -194,7 +213,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import external_rules from '../plugins/rules/rules'
 
 export default {
@@ -294,11 +312,40 @@ export default {
 </script>
 
 <style scoped>
+  .comment-row {
+    margin-bottom: 15px;
+    border: solid rgb(206, 206, 206) 1px;
+    border-radius: 3px;
+  }
+  .comment-body-row {
+    word-wrap: anywhere;
+    max-width: min-content;
+    max-width: 100%;
+    padding: 10px 15px 10px 15px;
+    margin: 0 10px 10px 25px;
+    border-radius: 3px;
+    background-color: rgb(241, 241, 241);
+  }
+  .comment-contents-row {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .date-at {
+    text-justify: center;
+    padding-top: 1.5em;
+  }
   .profile-col {
+    min-width: fit-content;
+  }
+  .profile-row {
     place-content: center;
+    width: 145px;
   }
   .profile-pic {
     border-radius: 50%;
     max-width: 32px;
+  }
+  .topic {
+    min-width: 100%;
   }
 </style>

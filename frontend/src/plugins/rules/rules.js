@@ -7,7 +7,8 @@ const external_rules = {
         username: v => ((v && v.length >= 5) && (v && v.length < 17))  || 'Username must be more than 5 and less than 16 characters',
         newUsername: v => (!v || ((v && v.length >= 5) && (v && v.length < 17)) ) || 'Username must be more than 5 and less than 16 characters',
         password: v => ((v && v.length >= 8) && (v && v.length < 17))  || 'Password must be more than 8 and less than 16 characters',
-        newPassword: v => (!v || ((v && v.length >= 8) && (v && v.length < 17)) ) || 'Password must be more than 8 and less than 16 characters'
+        newPassword: v => (!v || ((v && v.length >= 8) && (v && v.length < 17)) ) || 'Password must be more than 8 and less than 16 characters',
+        commentBody: v => ((!v) || (v && v.length <= 600)) || 'Comment must be less than 600 characters',
     },
     textOnly: v => (!v || /^[a-zA-Z_-]+$/.test(v)) || 'Field can contain letters only',
     email: v => /.+@.+\..+/.test(v) || 'Email must be valid',
