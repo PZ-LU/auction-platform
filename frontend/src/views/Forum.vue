@@ -135,7 +135,7 @@
         <h1
           class="display-3 font-weight-light"
         >
-          Auction Forum
+          Community Forum
         </h1>
         <v-divider />
       </v-col>
@@ -144,7 +144,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import external_rules from '../plugins/rules/rules'
 
 export default {
