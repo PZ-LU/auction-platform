@@ -11,6 +11,7 @@
       </v-col>
       <v-col>
         <v-dialog
+          persistent
           v-model="user.suspendDialog"
         >
           <template

@@ -17,4 +17,18 @@ class TopicCategoryController extends Controller
     {
         return TopicCategoryResources::collection(TopicCategory::all());
     }
+
+    public function store(Request $request)
+    {
+        $category = new TopicCategory;
+        $category->label = $request->label;
+        $category->save();
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function delete(Request $request) {
+        $categoryToDelete = TopicCategory::find($request->category);
+        $categoryToDelete->delete();
+        return;
+    }
 }

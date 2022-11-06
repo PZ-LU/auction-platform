@@ -30,6 +30,7 @@
                   <v-icon>mdi-autorenew</v-icon>
                 </v-btn>
                 <v-dialog
+                  persistent
                   v-model="addOfferDialog"
                   max-width="1500px"
                 >
@@ -101,6 +102,7 @@
                     :pOffer="item"
                     :pCategories="categories"
                     @updateOffers="offers_update()"
+                    @reloadOffers="offers_update()"
                   />
                 </v-container>
               </v-container>    

@@ -3,7 +3,9 @@
     <div
       v-if="pIsTiled"
     >
-      <v-card>
+      <v-card
+        outlined
+      >
         <v-card-title>
           <div
             class="profile-pic"
@@ -116,7 +118,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ImageLightbox from '@/components/helpers/ImageLightbox.vue'
 import ShowOffer from '@/components/ShowOffer.vue'
 import fetchFavoriteOffers from '@/plugins/fetchFavoriteOffers.js'
@@ -140,9 +141,7 @@ export default {
   methods: {
     closeShowOfferDialog () {
       this.showOfferDialog = false
-      if (this.pIsAdmin) {
-        this.$emit('reloadOffers')
-      }
+      this.$emit('reloadOffers')
     },
     favoriteOffer () {
       const config = { 

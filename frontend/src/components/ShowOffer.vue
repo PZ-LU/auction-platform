@@ -127,8 +127,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
     DeleteOfferDialog: () => import('./essentials/DeleteOfferDialog'),

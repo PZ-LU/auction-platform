@@ -7,6 +7,7 @@
       {{ pTopic.title }}
       <v-spacer />
       <v-dialog
+        persistent
         v-if="$auth.user().id && ($auth.user().id === pTopic.author_data.id || $auth.user().role !== 'user')"
         v-model="showDeleteDialog"
       >
@@ -142,6 +143,7 @@
                     cols="1"
                   >
                     <v-dialog
+                      persistent
                       v-if="$auth.user().id && ($auth.user().id === comment.author_id || $auth.user().role !== 'user')"
                       v-model="comment.dialog"
                     >
