@@ -41,6 +41,7 @@
           class="bid-col"
         >
           <v-dialog
+            persistent
             v-model="showConfirmationDialog"
           >
             <template #activator="{ on }">

@@ -20,9 +20,3 @@ class AuctionObject extends Model
     */
     public $timestamps = false;
 }
-
-// Temporary
-class AuctionObjectType
-{
-    public const CAR = 1;
-}

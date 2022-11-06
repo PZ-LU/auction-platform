@@ -43,6 +43,7 @@
             </v-card-title>
             <v-card-actions>
               <v-dialog
+                persistent
                 v-model="editDialog"
                 max-width="800px"
               >
@@ -242,6 +243,7 @@
               </v-dialog>
                             
               <v-dialog
+                persistent
                 v-model="deleteDialog"
                 max-width="800px"
               >

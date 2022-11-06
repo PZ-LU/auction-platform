@@ -241,7 +241,6 @@
 
 <script>
 import external_rules from '@/plugins/rules/rules.js'
-import axios from 'axios'
 
 export default {
   props: {
@@ -389,7 +388,7 @@ export default {
 
               case 500:
                 this.response.status = 'Error'
-                this.response.message = 'Server is not responging. Error code: 500'
+                this.response.message = 'Server is not responding. Error code: 500'
                 break
             
               default:

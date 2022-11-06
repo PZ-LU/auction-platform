@@ -28,7 +28,7 @@ const insertAuctionParticipant = async (token, userId, auctionId, price, respons
     
                     case 500:
                         response.status = 'Error'
-                        response.message = 'Server is not responging. Error code: 500'
+                        response.message = 'Server is not responding. Error code: 500'
                     break
                 
                     default:

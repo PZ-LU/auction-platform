@@ -1,5 +1,7 @@
 <template>
-  <v-card>
+  <v-card
+    outlined
+  >
     <v-card-title>
       Privilege Control
     </v-card-title>

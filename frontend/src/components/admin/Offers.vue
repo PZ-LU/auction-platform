@@ -1,5 +1,7 @@
 <template>
-  <v-card>
+  <v-card
+    outlined
+  >
     <v-card-title>
       User Offers
       <v-spacer />

@@ -47,6 +47,10 @@ Route::prefix('auth')->group( function () {
             Route::post('checkBid', 'CommercialAuctionController@checkBid');
             Route::post('add', 'AuctionController@store');
             Route::post('finish', 'AuctionController@finishAuction');
+            Route::prefix('object')->group(function () {
+                Route::post('addType', 'AuctionObjectController@storeType');
+                Route::post('deleteType', 'AuctionObjectController@deleteType');
+            });
         });
         Route::post('auctions', 'AuctionController@getUserAuctions');
 
@@ -59,6 +63,10 @@ Route::prefix('auth')->group( function () {
             Route::prefix('comment')->group(function () {
                 Route::post('add', 'TopicCommentController@store');
                 Route::post('delete', 'TopicCommentController@delete');
+            });
+            Route::prefix('category')->group(function () {
+                Route::post('add', 'TopicCategoryController@store');
+                Route::post('delete', 'TopicCategoryController@delete');
             });
         });
 
@@ -85,6 +93,9 @@ Route::get('/offer_media/{id}', 'OfferController@media');
 Route::get('/tag_categories', 'TagCategoryController@index');
 
 Route::get('/auctions/{status?}', 'AuctionController@index');
+Route::prefix('auction')->group(function () {
+    Route::get('/objects', 'AuctionObjectController@index_types');
+});
 
 Route::prefix('forum')->group(function () {
     Route::get('/categories', 'TopicCategoryController@index');

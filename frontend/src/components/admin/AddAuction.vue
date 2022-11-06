@@ -21,6 +21,26 @@
                 />
               </v-col>
               <v-col>
+                <v-row>
+                  <v-select
+                    v-model="objectType"
+                    required
+                    label="Category"
+                    solo
+                    :items="objTypes"
+                    item-text="label"
+                    item-value="id"
+                    style="height: 50px;"
+                  />
+                  <span
+                    v-if="clickAndEmptyType"
+                    style="width: 100%; color: red;"
+                  >
+                    Provide object type
+                  </span>
+                </v-row>
+              </v-col>
+              <v-col>
                 <v-file-input
                   v-model="image"
                   label="Auction Image"
@@ -132,7 +152,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import rules from '../../plugins/rules/rules'
 
 export default {
@@ -147,6 +166,9 @@ export default {
       dateMenu: null,
       image: null,
       response: null,
+      objectType: null,
+      objTypes: [],
+      clickAndEmptyType: false,
 
       rules: rules,
       scoped_rules: {
@@ -154,6 +176,9 @@ export default {
         amount: v => this.amount > 0 || 'Incorrect amount'
       }
     }
+  },
+  created () {
+    this.fetchObjectTypes()
   },
   beforeDestroy () {
     this.closeDialog()
@@ -170,6 +195,7 @@ export default {
       this.dateMenu = null
       this.image = null
       this.response = null
+      this.clickAndEmptyType = false
       try {
         this.$refs.aucForm.reset()
       } catch (error) {
@@ -177,7 +203,16 @@ export default {
       }
     },
     submit () {
-      if (this.$refs.aucForm.validate() && (this.pType === 'commercial' ? this.date : true)) {
+      if (!this.objectType) {
+        this.clickAndEmptyType = true
+        console.log("EMPTY");
+      } else {
+        this.clickAndEmptyType = false
+      }
+
+      if (this.$refs.aucForm.validate()
+          && (this.pType === 'commercial' ? this.date : true)
+          && !this.clickAndEmptyType) {
         const newAuctionData = new FormData()
         newAuctionData.append('type', this.pType)
         newAuctionData.append('object_name', this.objectName)
@@ -216,7 +251,20 @@ export default {
             console.log(err)
           })
       }
-    }
+    },
+    fetchObjectTypes() {
+      this.$axios
+      .get('auction/objects')
+      .then(res => {
+        let {data:{obj_types:obj_types}} = res || {}
+        if (obj_types) {
+          this.objTypes = obj_types
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
   }
 }
 </script>
