@@ -35,8 +35,8 @@ class UserController extends Controller
         $user = Auth::user();
 
         $v = Validator::make($request->all(), [
-            'username' => 'unique:users,username,' . $request->id,
-            'email' => 'unique:users,email,' . $request->id
+            'username' => 'unique:users,username,' . $request->user_id,
+            'email' => 'unique:users,email,' . $request->user_id
         ]);
 
         if ($v->fails()) {

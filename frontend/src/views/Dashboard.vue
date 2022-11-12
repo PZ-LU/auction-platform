@@ -575,7 +575,7 @@ export default {
       this.$axios
       .post('auth/userUpdate',
         { 
-          id: this.$auth.user().id,
+          user_id: this.$auth.user().id,
           email: this.email,
           username: this.username,
           name: this.name,
@@ -652,8 +652,8 @@ export default {
     },
     fetchProfileOffers (path) {
       const offerData = new FormData()
-      offerData.append('author_id', this.$auth.user().id)
-      const config = { 
+      offerData.append('user_id', this.$auth.user().id)
+      const config = {
         headers: { 
           'Authorization': 'Bearer '+this.$auth.token(),
           'Content-Type': 'multipart/form-data' 

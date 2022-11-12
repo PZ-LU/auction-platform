@@ -136,7 +136,7 @@ export default {
         },
         onError: err => {
           this.response.status = 'Error'
-          this.response.message = 'Error occured on this transaction'
+          this.response.message = 'Error occurred on this transaction'
           this.isLoaded = true
           this.isError = true
         },
