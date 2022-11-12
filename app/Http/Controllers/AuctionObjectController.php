@@ -49,8 +49,6 @@ class AuctionObjectController extends Controller
 
     public function deleteType(Request $request) {
         $typeToDelete = AuctionObjectType::find($request->type);
-        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $out->writeln($typeToDelete);
         $dependantAuctionObjects = AuctionObject::where('object_type_id', '=', $typeToDelete->id)->get();
         if (!$dependantAuctionObjects->isEmpty()) {
             return response()->json([

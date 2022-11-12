@@ -36,10 +36,6 @@ class AuctionController extends Controller
         $raw_auctions = new Auction;
         $decoded_auctions = json_decode($raw_auctions->all());
 
-        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $out->writeln($request->status);
-        $out->writeln($limit);
-
         if ($status != Offer\Status::ALL) {
             $decoded_auctions = array_filter($decoded_auctions, function($auction) use ($status) {
                 return $auction->status == $status;

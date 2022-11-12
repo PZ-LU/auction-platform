@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class Authenticate extends Middleware
 {
@@ -29,8 +31,12 @@ class Authenticate extends Middleware
         //         'msg' => $this->authenticate($request, $guards)
         //     ]);
         // }
-
-        return $next($request);
+        $user = Auth::user();
+        if ($user->status == User\Status::ACTIVE) {
+            return $next($request);
+        } else {
+            return response()->json(['error' => 'account_suspended'], 401);
+        }
     }
 
     protected function authenticate($request, array $guards)

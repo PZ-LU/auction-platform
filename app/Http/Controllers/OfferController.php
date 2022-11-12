@@ -121,17 +121,17 @@ class OfferController extends Controller
     }
 
     public function getUserOffers (Request $request) {
-        $offers = Offer::where('author_id', '=', $request->author_id)->where('status', Offer\Status::ACTIVE)->get();
+        $offers = Offer::where('author_id', '=', $request->user_id)->where('status', Offer\Status::ACTIVE)->get();
         if (sizeof($offers) < 1) {
             return [];
         }
 
         if (sizeof($offers) > 1) {
             foreach ($offers as $offer) {
-                $offer->author_info = $this->getOfferAuthor($request->author_id);
+                $offer->author_info = $this->getOfferAuthor($request->user_id);
             }
         } else {
-            $offers[0]->author_info = $this->getOfferAuthor($request->author_id);
+            $offers[0]->author_info = $this->getOfferAuthor($request->user_id);
         }
 
         try {
