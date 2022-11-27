@@ -17,8 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('register', 'AuthController@register');
+
 Route::prefix('auth')->group( function () {
-    Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::get('refresh', 'AuthController@refresh');
 
@@ -39,6 +40,10 @@ Route::prefix('auth')->group( function () {
         Route::prefix('offers')->group(function () {
             Route::get('/', 'OfferController@getServiceOffers');
             Route::post('setFavorite', 'OfferController@changeFavorite');
+            Route::prefix('tags')->group(function () {
+                Route::post('addCategory', 'TagCategoryController@storeCategory');
+                Route::post('deleteCategory', 'TagCategoryController@deleteCategory');
+            });
         });
 
         // Auction

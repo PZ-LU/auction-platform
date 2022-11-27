@@ -4,6 +4,8 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +22,29 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->firstname,
         'surname' => $faker->lastname,
-        'username' => $faker->userName,
+        'username' => substr($faker->userName, 0, 16),
         'email' => $faker->unique()->safeEmail,
         'gender' => $faker->randomElement(['male', 'female']),
-        // 'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        // 'remember_token' => Str::random(10),
+        'avatar_path' => URL::to('/') . '/storage/resources/default.svg',
+        'password' => bcrypt('12345678'),
+        'role' => 'user',
+        'status' => $faker->randomElement(['active', 'suspended'])
+    ];
+});
+
+$factory->state(App\User::class, 'admin', function (Faker $faker) {
+    return [
+        'password' => bcrypt('secret'),
+        'role' => 'admin',
+        'status' => 'active'
+    ];
+});
+
+$factory->state(App\User::class, 'super_admin', function (Faker $faker) {
+    return [
+        'username' => 'mainAdmin',
+        'password' => bcrypt('secret'),
+        'role' => 'super_admin',
+        'status' => 'active'
     ];
 });

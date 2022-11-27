@@ -77,7 +77,6 @@
                     color="success"
                     text
                     block
-                    @click="closeAddForumCategoryDialog(true)"
                   >
                     Ok
                   </v-btn>
@@ -271,20 +270,22 @@ export default {
       }
       this.addTopicDialog = false
       this.response = null
+
+      // Hack to update topics from currently selected category
+      this.selectedCategory = null
     },
     closeAddForumCategoryDialog () {
       this.addForumCategoryDialog = false
-      this.response = null
+      this.fetchCategories()
     },
     fetchCategories () {
       this.$axios
         .get('forum/categories')
         .then(res => {
           const {data:{data}} = res
-          if (data && !data.length){
-            this.categories = [data]
-          } else {
-            this.categories = data
+          if (data){
+            if (data.length)
+              this.categories = data
           }
         })
         .catch(err => {
@@ -309,7 +310,6 @@ export default {
           .post('auth/forum/topic/add', topicData, config)
           .then (res => {
             this.response = 'Your topic will be created!'
-            this.fetchCategories()
           })
           .catch ((err) => {
             console.log(err)

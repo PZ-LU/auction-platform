@@ -218,7 +218,8 @@ class OfferController extends Controller
         $mediaCollection = collect([]);
         $rawMedia = DB::table('offers_media')->get()->where('offer_id', $id);
         foreach ($rawMedia as $data) {
-            $mediaCollection = $mediaCollection->concat(['file_name' => Storage::disk('public')->url('uploads/offers_media/'.$data->file_name)]);
+            // $mediaCollection = $mediaCollection->concat(['file_name' => Storage::disk('public')->url('uploads/offers_media/'.$data->file_name)]);
+            $mediaCollection = $mediaCollection->concat(['file_name' => $data->photo_path]);
         }
 
         return response()->json([

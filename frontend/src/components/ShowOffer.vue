@@ -6,7 +6,7 @@
           <h3>{{ pOffer.title }}</h3>
           
           <h4 class="subtitle-1">
-            added on {{ new Date(pOffer.created_at).toLocaleDateString() }}
+            Posted on {{ new Date(pOffer.created_at).toLocaleDateString() }}
           </h4>
         </div>
         <v-spacer />

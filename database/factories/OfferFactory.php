@@ -8,9 +8,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Offer::class, function (Faker $faker) {
     return [
-        'author_id' => User::all()->random()->ID,
+        'author_id' => User::all()->random()->id,
         'title' => $faker->text(40),
         'body' => $faker->text(300),
-        'preview_image' => $faker->imageUrl(640, 480)
+        'contact_phone' => $faker->numberBetween($min = 1000000, $max = 999999999999),
+        'status' => $faker->randomElement(['active', 'archived']),
     ];
 });
