@@ -1,73 +1,216 @@
 <template>
-  <v-card
-    outlined
+  <div
+    style="display: flex;"
   >
-    <v-card-title>
-      User Offers
-      <v-spacer />
-      <v-btn
-        icon
-        @click="fetchAll()"
-      >
-        <v-icon>mdi-autorenew</v-icon>
-      </v-btn>
-    </v-card-title>
-    <v-card-subtitle>
-      Active Offers
-    </v-card-subtitle>
-    <v-container
-      class="offers-container"
+    <v-card
+      outlined
+      class="offers"
     >
-      <v-row
-        v-for="offer in activeOffers"
-        :key="offer.id"
+      <v-card-title>
+        User Offers
+        <v-spacer />
+        <v-btn
+          icon
+          @click="fetchAll()"
+        >
+          <v-icon>mdi-autorenew</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-subtitle>
+        Active Offers
+      </v-card-subtitle>
+      <v-container
+        class="offers-container"
       >
-        <OffersDisplay
-          class="offer"
-          :pOffer="offer"
-          :pCategories="categories"
-          :pIsTiled="true"
-          :pIsAdmin="true"
-          @reloadOffers="fetchAll"
-        />
-      </v-row>
-    </v-container>
+        <v-row
+          v-for="offer in activeOffers"
+          :key="offer.id"
+        >
+          <OffersDisplay
+            class="offer"
+            :pOffer="offer"
+            :pCategories="categories"
+            :pIsTiled="true"
+            :pIsAdmin="true"
+            @reloadOffers="fetchAll"
+          />
+        </v-row>
+      </v-container>
 
-    <v-card-subtitle>
-      Archived Offers
-    </v-card-subtitle>
-    <v-container
-      class="offers-container"
-    >
-      <v-row
-        v-for="offer in archivedOffers"
-        :key="offer.id"
+      <v-card-subtitle>
+        Archived Offers
+      </v-card-subtitle>
+      <v-container
+        class="offers-container"
       >
-        <OffersDisplay
-          class="offer"
-          :pOffer="offer"
-          :pCategories="categories"
-          :pIsTiled="true"
-          :pIsAdmin="true"
-          @reloadOffers="fetchAll"
-        />
-      </v-row>
-    </v-container>
-  </v-card>
+        <v-row
+          v-for="offer in archivedOffers"
+          :key="offer.id"
+        >
+          <OffersDisplay
+            class="offer"
+            :pOffer="offer"
+            :pCategories="categories"
+            :pIsTiled="true"
+            :pIsAdmin="true"
+            @reloadOffers="fetchAll"
+          />
+        </v-row>
+      </v-container>
+    </v-card>
+    <!-- object types -->
+    <v-card
+      outlined
+    >
+      <v-card-title>Tag Categories</v-card-title>
+      <v-divider />
+      <v-list>
+        <v-list-item-group
+          v-model="tagCatSection"
+          class="scrollable"
+        >
+          <v-list-item
+            v-for="tagCat in categories"
+            :key="tagCat.id"
+            @click="selectedTagCat = tagCat"
+          >
+            <v-list-item-content>
+              <v-list-item-title
+                style="display: contents;"
+              >
+                {{ tagCat.label }}
+                <v-spacer/>
+                <v-btn
+                  v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
+                  icon
+                  color="error"
+                  style="margin-left: auto;"
+                  @click="showDeleteTagCatDialog = true"
+                >
+                  <v-icon>mdi-delete-forever-outline</v-icon>
+                </v-btn>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-dialog
+        v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
+        v-model="addTagCatDialog"
+        persistent
+      >
+        <template
+          #activator="{ on }"
+        >
+          <v-btn
+            text
+            block
+            v-on="on"
+          >
+            New Tag Category
+          </v-btn>
+        </template>
+
+        <v-form
+          ref="catForm"
+          v-if="!response"
+        >
+          <AddTagCategory
+            @closeAddTagCatDialog="closeAddTagCatDialog()"
+          />
+        </v-form>
+
+        <v-card
+          v-if="response"
+        >
+          <v-card-title>
+            {{ response }}
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="success"
+              text
+              block
+              @click="closeAddTagCatDialog()"
+            >
+              Ok
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-card>
+    <!-- hidden delete object type dialog -->
+    <v-dialog
+      v-model="showDeleteTagCatDialog"
+      persistent
+    >
+      <v-card
+        v-if="!response"
+      >
+        <v-card-title>
+          Attention!
+        </v-card-title>
+        <v-card-text>
+          Would You really like to delete this category?
+          You cannot delete categories that are already assigned to posted offer tags.
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            width="50%"
+            text
+            color="primary"
+            @click="deleteTagCategory()"
+          >
+            Confirm
+          </v-btn>
+          <v-btn
+            width="50%"
+            text
+            color="error"
+            @click="showDeleteTagCatDialog = false"
+          >
+            Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <v-card
+        v-if="response"
+      >
+        <v-card-title>
+          {{ response }}
+        </v-card-title>
+        <v-card-actions>
+          <v-btn
+            text
+            block
+            @click="closeAddObjTypeDialog()"
+          >
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
-    OffersDisplay: () => import('../OffersDisplay')
+    OffersDisplay: () => import('../OffersDisplay'),
+    AddTagCategory: () => import('./AddTagCategory')
   },
   data () {
     return {
       activeOffers: [],
       archivedOffers: [],
-      categories: []
+      categories: [],
+      selectedTagCat: null,
+
+      addTagCatDialog: false,
+      showDeleteTagCatDialog: false,
+
+      response: null
     }
   },
   created () {
@@ -75,24 +218,27 @@ export default {
   },
   methods: {
     fetchAll () {
-      this.fetchCategories()
+      this.fetchTagCategories()
       this.fetchAllOffers()
     },
-    fetchCategories () {
+    fetchTagCategories () {
       this.$axios
         .get('tag_categories')
         .then(res => {
           const {data:{data}} = res
-          if (data && !data.length){
-            this.categories = [data]
-          } else {
-            this.categories = data
+          if (data){
+            if (data.length)
+              this.categories = data
           }
         })
         .catch(err => {
           this.errorCode = err.response.status
           this.responseError()
         })
+    },
+    closeAddTagCatDialog () {
+      this.addTagCatDialog = false
+      this.fetchTagCategories()
     },
     fetchAllOffers () {
       this.activeOffers = []
@@ -124,6 +270,22 @@ export default {
           this.responseError()
         })
     },
+    deleteTagCategory () {
+      const config = { 
+        headers: { 
+          'Authorization': 'Bearer '+this.$auth.token(),
+        }
+      }
+      this.$axios
+        .post('auth/offers/tags/deleteCategory', { category: this.selectedTagCat.id}, config)
+        .then (res => {
+          this.showDeleteTagCatDialog = false
+          this.fetchTagCategories()
+        })
+        .catch ((err) => {
+          console.log(err)
+        })
+    },
   }
 }
 </script>
@@ -135,5 +297,13 @@ export default {
   }
   .offer {
     width: 100%;
+  }
+  .offers {
+    min-width: 70%;
+    margin-right: 25px;
+  }
+  .scrollable {
+    max-height: 500px;
+    overflow: auto;
   }
 </style>

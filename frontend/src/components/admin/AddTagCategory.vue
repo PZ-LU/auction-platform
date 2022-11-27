@@ -12,7 +12,7 @@
             <h1
               class="headline font-weight-regular"
             >
-              Add new object type
+              Add new tag category
             </h1> 
             <v-spacer />
             <v-btn
@@ -27,8 +27,8 @@
               v-model="title"
               :rules="[rules.required]"
               :counter="32"
-              placeholder="Type ..."
-              label="Object Type Name"
+              placeholder="Category ..."
+              label="Tag Category Name"
               outlined
             />
           </v-card-text>
@@ -96,10 +96,6 @@
         title: null,
   
         rules: external_rules,
-        scoped_rules: {
-          contactPhone: v => (!!v && v.length > 6 && v.length < 40 && /^[0-9]+$/.test(v)) || 'Provide a valid phone number without any symbols',
-          filesRequired: v => (!!v && this.files.length >=1) || 'You need to attach at least 1 image'
-        },
 
         response: {
           status: null,
@@ -121,12 +117,12 @@
           this.$refs.catForm.reset()
         }
         
-        this.$emit('closeAddObjTypeDialog')
+        this.$emit('closeAddTagCatDialog')
       },
       submit () {
         if (this.$refs.catForm.validate()) {
-          const offerData = new FormData()
-          offerData.append('label', this.title)
+          const tagData = new FormData()
+          tagData.append('label', this.title)
           const config = { 
             headers: { 
               'Authorization': 'Bearer '+this.$auth.token(),
@@ -134,12 +130,12 @@
             }
           }
           this.$axios
-            .post('/auth/auction/object/addType', offerData, config)
+            .post('/auth/offers/tags/addCategory', tagData, config)
             .then (res => {
               switch (res.status) {
                 case 200:
                   this.response.status = 'Success'
-                  this.response.message = 'Object type has been successfully submitted!'
+                  this.response.message = 'Category has been successfully submitted!'
                   break
   
                 case 500:

@@ -25,7 +25,7 @@
                   <v-select
                     v-model="objectType"
                     required
-                    label="Category"
+                    label="Type"
                     solo
                     :items="objTypes"
                     item-text="label"
@@ -185,6 +185,7 @@ export default {
   },
   methods: {
     closeDialog () {
+      this.fetchObjectTypes()
       this.destroyDialog()
       this.$emit('closeDialog')
     },
@@ -253,6 +254,7 @@ export default {
       }
     },
     fetchObjectTypes() {
+      console.log("fetching");
       this.$axios
       .get('auction/objects')
       .then(res => {

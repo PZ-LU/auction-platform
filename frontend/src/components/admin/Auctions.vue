@@ -104,78 +104,79 @@
       <v-card-title>Object Types</v-card-title>
       <v-divider />
       <v-list>
-      <v-list-item-group
-        v-model="objTypeSection"
-      >
-        <v-list-item
-          v-for="objType in objTypes"
-          :key="objType.id"
-          @click="selectedObjType = objType"
+        <v-list-item-group
+          v-model="objTypeSection"
+          class="scrollable"
         >
-          <v-list-item-content>
-            <v-list-item-title
-              style="display: contents;"
-            >
-              {{ objType.label }}
-              <v-spacer/>
-              <v-btn
-                v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
-                icon
-                color="error"
-                style="margin-left: auto;"
-                @click="showDeleteObjTypeDialog = true"
+          <v-list-item
+            v-for="objType in objTypes"
+            :key="objType.id"
+            @click="selectedObjType = objType"
+          >
+            <v-list-item-content>
+              <v-list-item-title
+                style="display: contents;"
               >
-                <v-icon>mdi-delete-forever-outline</v-icon>
-              </v-btn>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-    <v-dialog
-      v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
-      v-model="addObjTypeDialog"
-      persistent
-    >
-      <template
-        #activator="{ on }"
+                {{ objType.label }}
+                <v-spacer/>
+                <v-btn
+                  v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
+                  icon
+                  color="error"
+                  style="margin-left: auto;"
+                  @click="showDeleteObjTypeDialog = true"
+                >
+                  <v-icon>mdi-delete-forever-outline</v-icon>
+                </v-btn>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-dialog
+        v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
+        v-model="addObjTypeDialog"
+        persistent
       >
-        <v-btn
-          text
-          block
-          v-on="on"
+        <template
+          #activator="{ on }"
         >
-          New Object Type
-        </v-btn>
-      </template>
-
-      <v-form
-        ref="catForm"
-        v-if="!response"
-      >
-        <AddObjectType
-          @closeAddObjTypeDialog="closeAddObjTypeDialog()"
-        />
-      </v-form>
-
-      <v-card
-        v-if="response"
-      >
-        <v-card-title>
-          {{ response }}
-        </v-card-title>
-        <v-card-actions>
           <v-btn
-            color="success"
             text
             block
-            @click="closeAddObjTypeDialog()"
+            v-on="on"
           >
-            Ok
+            New Object Type
           </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+        </template>
+
+        <v-form
+          ref="catForm"
+          v-if="!response"
+        >
+          <AddObjectType
+            @closeAddObjTypeDialog="closeAddObjTypeDialog()"
+          />
+        </v-form>
+
+        <v-card
+          v-if="response"
+        >
+          <v-card-title>
+            {{ response }}
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="success"
+              text
+              block
+              @click="closeAddObjTypeDialog()"
+            >
+              Ok
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-card>
     <!-- hidden delete object type dialog -->
     <v-dialog
@@ -343,6 +344,10 @@ export default {
   .auctions {
     min-width: 70%;
     margin-right: 25px;
+  }
+  .scrollable {
+    max-height: 500px;
+    overflow: auto;
   }
   .v-card__subtitle {
     padding-top: 20px;

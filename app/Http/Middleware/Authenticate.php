@@ -16,22 +16,25 @@ class Authenticate extends Middleware
      * @return string
      */
 
-    // protected function redirectTo($request)
-    // {
-    //     error_log('s');
-    //     return route('home');
-    // }
+    protected $exception_routes = [
+      'api/register',
+    ];
 
     public function handle($request, Closure $next, ...$guards)
     {
-        // error_log('This is some useful information.');
-        // if ($this->authenticate($request, $guards) === 'authentication_error') {
-        //     return response()->json([
-        //         'error' => 'Unauthorized',
-        //         'msg' => $this->authenticate($request, $guards)
-        //     ]);
-        // }
+        // TODO: delete
+        // $out->writeln(URL::to('/'));
+        // $out->writeln(URL::to('/'));
+
+
+        foreach ($this->exception_routes as $excluded_route) {
+            if ($request->path() === $excluded_route) {
+                return  $next($request);
+            }
+        }
+
         $user = Auth::user();
+        
         if ($user->status == User\Status::ACTIVE) {
             return $next($request);
         } else {

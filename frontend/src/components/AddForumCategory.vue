@@ -96,10 +96,6 @@
         title: null,
   
         rules: external_rules,
-        scoped_rules: {
-          contactPhone: v => (!!v && v.length > 6 && v.length < 40 && /^[0-9]+$/.test(v)) || 'Provide a valid phone number without any symbols',
-          filesRequired: v => (!!v && this.files.length >=1) || 'You need to attach at least 1 image'
-        },
 
         response: {
           status: null,
