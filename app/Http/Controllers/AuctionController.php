@@ -117,7 +117,7 @@ class AuctionController extends Controller
 
     public function finishAuction(Request $request) {
         $auctionToFinish = Auction::find($request->auction_id);
-        $auctionToFinish->finished_at = now();
+        $auctionToFinish->finished_at = now('Europe/Riga');
         $auctionToFinish->save();
         return;
     }
@@ -130,7 +130,7 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
-        $auctionObject = $this->createAuctionObject($request->object_name, $request->preview_image);
+        $auctionObject = $this->createAuctionObject($request->object_name, $request->object_type_id, $request->preview_image);
         $auction = new Auction();
         $auction->object_id = $auctionObject->id;
         $auction->type = $request->type;

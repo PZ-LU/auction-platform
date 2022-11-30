@@ -22,11 +22,6 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        // TODO: delete
-        // $out->writeln(URL::to('/'));
-        // $out->writeln(URL::to('/'));
-
-
         foreach ($this->exception_routes as $excluded_route) {
             if ($request->path() === $excluded_route) {
                 return  $next($request);

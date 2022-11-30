@@ -42,17 +42,17 @@ class OfferController extends Controller
 
         // conditions from route query parameters
         if(!is_null($request->title)) {
-            $offersQuery->where('title', 'like', '%'.$request->title.'%');
+            $offersQuery->where('title', 'ilike', '%'.$request->title.'%');
         }
 
         if(!is_null($request->description)) {
-            $offersQuery->where('body', 'like', '%'.$request->description.'%');
+            $offersQuery->where('body', 'ilike', '%'.$request->description.'%');
         }
 
         $offers = Offer::where('status', Offer\Status::ACTIVE);
         if(!is_null($request->tags)) {
             $offerIds = DB::table('offers_tags')
-                ->where('tag', 'like', '%'.$request->tags.'%')
+                ->where('tag', 'ilike', '%'.$request->tags.'%')
                 ->groupBy('offer_id')
                 ->pluck('offer_id')
                 ->toArray();
