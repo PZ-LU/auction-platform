@@ -208,6 +208,7 @@ export default {
       selectedTagCat: null,
 
       addTagCatDialog: false,
+      tagCatSection: null,
       showDeleteTagCatDialog: false,
 
       response: null

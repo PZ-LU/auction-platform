@@ -7,7 +7,7 @@
         >
           <OffersFilters
             :pCategories="categories"
-            @updateFilters="offers_update()"
+            @updateFilters="update_page_filters()"
           />
         </v-col>
         <v-col
@@ -256,6 +256,11 @@ export default {
     },
     getPageCount () {
       return this.page_count;
+    },
+    update_page_filters() {
+      this.page_number = 1;
+      this.page_count = 1;
+      this.offers_update();
     },
     offers_update () {
       this.offersFilters = this.$store.getters['offersFilters']

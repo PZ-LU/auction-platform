@@ -15,7 +15,7 @@ class CreateAuctionsTable extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('object_id');
+            $table->unsignedBigInteger('object_id')->unique();
             $table->timestamp('started_at')->useCurrent();
             $table->timestamp('finished_at')->nullable();
             $table->enum('status', ['active', 'dismissed'])->default('active');

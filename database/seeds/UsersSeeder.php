@@ -11,7 +11,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 30)->create();
+        factory(App\User::class, 100)->create();
         factory(App\User::class, 3)->states('admin')->create();
         factory(App\User::class, 1)->states('super_admin')->create();
     }

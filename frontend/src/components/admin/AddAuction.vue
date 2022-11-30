@@ -217,6 +217,7 @@ export default {
         const newAuctionData = new FormData()
         newAuctionData.append('type', this.pType)
         newAuctionData.append('object_name', this.objectName)
+        newAuctionData.append('object_type_id', this.objectType)
         if (this.image.size / 1024 / 1024 > 1.5) {
             alert("Single image size cannot exceed 1.5 MiB!")
             return
