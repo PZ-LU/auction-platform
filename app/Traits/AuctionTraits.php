@@ -66,8 +66,8 @@ trait AuctionTraits
         }
     }
 
-    public function createAuctionObject ($objectName, $objectTypeId, $previewImage) {
-        return (new AuctionObjectController)->create($objectName, $objectTypeId, $previewImage);
+    public function createAuctionObject ($objectName, $objectDescription, $objectTypeId, $previewImage) {
+        return (new AuctionObjectController)->create($objectName, $objectDescription, $objectTypeId, $previewImage);
     }
 
     public function createCharityAuction ($auctionId, $goal) {

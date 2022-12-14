@@ -23,7 +23,7 @@ class AuctionObjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($objectName, $objectTypeId, $previewImage)
+    public function create($objectName, $objectDescription, $objectTypeId, $previewImage)
     {
         $newLabel = md5(time()+rand()).'.'.$previewImage->getClientOriginalExtension();
         $previewImage->storeAs(
@@ -34,6 +34,7 @@ class AuctionObjectController extends Controller
         $auctionObject = new AuctionObject();
         $auctionObject->object_type_id = $objectTypeId;
         $auctionObject->name = $objectName;
+        $auctionObject->body = $objectDescription;
         $auctionObject->preview_image = $imagePath;
         $auctionObject->save();
         return $auctionObject;

@@ -50,6 +50,18 @@
                 />
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  v-model="description"
+                  label="Description (line endings can be used)"
+                  auto-grow
+                  rows="1"
+                  :counter="300"
+                  :rules="[rules.required]"
+                />
+              </v-col>
+            </v-row>
 
             <!-- /charity block -->
             <div
@@ -161,6 +173,7 @@ export default {
   data () {
     return {
       objectName: null,
+      description: null,
       amount: null,
       date: null,
       dateMenu: null,
@@ -191,6 +204,7 @@ export default {
     },
     destroyDialog () {
       this.objectName = null
+      this.description = null
       this.amount = null
       this.date = null
       this.dateMenu = null
@@ -217,6 +231,7 @@ export default {
         const newAuctionData = new FormData()
         newAuctionData.append('type', this.pType)
         newAuctionData.append('object_name', this.objectName)
+        newAuctionData.append('description', this.description)
         newAuctionData.append('object_type_id', this.objectType)
         if (this.image.size / 1024 / 1024 > 1.5) {
             alert("Single image size cannot exceed 1.5 MiB!")

@@ -12,6 +12,29 @@
       >
         {{ pAuction.auction_object.name }}
       </h2>
+      <div
+        ref="description_wrapper"
+        class="description-wrapper description-wrapper-hidden"
+        style="width: 100%;"
+        v-if="pAuction.auction_object.body"
+      >
+        <v-btn
+          depressed
+          text
+          class="description-btn"
+          @click="resizeDescription()"
+        >{{ descAction }}</v-btn>
+        <div
+          class="description-hidden"
+          ref="description"
+        >
+          <p
+            class="description-text"
+          >
+            {{ pAuction.auction_object.body }}
+          </p>
+        </div>
+      </div>
     </v-card-title>
     
     <v-card-text>
@@ -122,6 +145,8 @@ export default {
       total_amount: 0,
       showPayPalDialog: false,
       auctionProduct: {},
+      descAction: "Show More",
+      descActionBtnPress: true,
 
       scoped_rules: {
         charityAmount: v => (!!v && v > 0 && v <= (this.pAuction.auction_data[0].goal - this.total_amount)) || 'Invalid amount'
@@ -214,6 +239,21 @@ export default {
     },
     sortParticipants () {
       this.sortedParticipants = this.auctionParticipants.sort((a, b) => (b.amount - a.amount))
+    },
+    resizeDescription () {
+      if (this.descActionBtnPress) {
+        this.descActionBtnPress = false;
+        this.descAction = "Show Less"
+        this.$refs.description.classList.remove("description-hidden");
+        this.$refs.description_wrapper.classList.remove("description-wrapper-hidden");
+        this.$refs.description.classList.add("description");
+      } else {
+        this.descActionBtnPress = true;
+        this.descAction = "Show More"
+        this.$refs.description.classList.add("description-hidden");
+        this.$refs.description_wrapper.classList.add("description-wrapper-hidden");
+        this.$refs.description.classList.remove("description");
+      }
     }
   }
 }
@@ -222,6 +262,34 @@ export default {
 <style scoped>
   .auction-object-title {
     margin-top: 10px;
+  }
+  .description {
+    width: 100%;
+    overflow:auto;
+    max-height: 15em;
+  }
+  .description-btn {
+    width: 100%;
+    background-color: transparent;
+  }
+  .description-hidden {
+    width: inherit;
+    max-height: 50px;
+    overflow:hidden;
+  }
+  .description-text {
+    font-weight: 300;
+    font-size: medium;
+    white-space: pre-wrap;
+  }
+  .description-wrapper {
+    margin-top: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .description-wrapper-hidden {
+    background: linear-gradient(0deg, rgb(202, 202, 202) 0%, rgba(255,255,255,0) 100%); 
   }
   .hightlight-row {
     background-color: lightgrey;
