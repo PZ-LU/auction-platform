@@ -47,6 +47,7 @@
                   prepend-icon="mdi-camera"
                   :rules="[rules.required]"
                   show-size
+                  accept="image/png, image/gif, image/jpeg, image/webp, image/bmp, image/svg"
                 />
               </v-col>
             </v-row>

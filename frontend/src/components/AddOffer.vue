@@ -146,6 +146,7 @@
                     multiple
                     show-size
                     width="50%"
+                    accept="image/png, image/gif, image/jpeg, image/webp, image/bmp, image/svg"
                   />
                   <v-container>
                     <v-row class="align-center justify-center">

@@ -22,6 +22,7 @@
               show-size
               ref="avatarInput"
               width="10px"
+              accept="image/png, image/gif, image/jpeg, image/webp, image/bmp, image/svg"
             />
             <v-btn
               v-if="showAvatarUpdateButton"
