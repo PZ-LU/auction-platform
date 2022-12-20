@@ -32,7 +32,7 @@
             v-model="bid"
             class="bid-field"
             :value="highestBid"
-            :rules="[scoped_rules.commericalAmount]"
+            :rules="[scoped_rules.commericalAmount, rules.types.integersOnly]"
             label="Amount (EUR)"
             outlined
           />
@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import external_rules from '@/plugins/rules/rules.js'
 import insertAuctionParticipant from '../plugins/insertAuctionParticipant'
 
 export default {
@@ -149,6 +149,7 @@ export default {
   data () {
     return {
       bid: 0,
+      rules: external_rules,
       scoped_rules: {
         commericalAmount: v => (!!v && v > (this.pAuction.auction_data[0].highest_bid_user_id ? this.highestBid : this.highestBid - 1 )) || 'Invalid amount'
       },
@@ -211,7 +212,7 @@ export default {
       )
       if (this.bidLeader) {
         this.highestBid = this.bidLeader.amount
-        this.bid = this.highestBid + 1
+        this.bid = parseInt(this.highestBid) + 1
       }
     },
     async submitBid () {

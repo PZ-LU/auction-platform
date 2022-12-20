@@ -97,7 +97,7 @@
           label="Amount (EUR)"
           outlined
           clearable
-          :rules="[scoped_rules.charityAmount]"
+          :rules="[scoped_rules.charityAmount, rules.types.integersOnly]"
         />
         <v-btn
           @click="showPayPalDialog = true"
@@ -129,6 +129,8 @@
 </template>
 
 <script>
+import external_rules from '@/plugins/rules/rules.js'
+
 export default {
   components: {
     ImageLightbox: () => import('./helpers/ImageLightbox'),
@@ -148,6 +150,7 @@ export default {
       descAction: "Show More",
       descActionBtnPress: true,
 
+      rules: external_rules,
       scoped_rules: {
         charityAmount: v => (!!v && v > 0 && v <= (this.pAuction.auction_data[0].goal - this.total_amount)) || 'Invalid amount'
       },
@@ -172,6 +175,9 @@ export default {
       return false
     },
     correctAmount: function () {
+      if (this.rules.types.integersOnly(this.amount) !== true) {
+        return false
+      }
       if (this.total_amount >= this.pAuction.auction_data[0].goal) {
         return false
       }

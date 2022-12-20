@@ -73,7 +73,7 @@
                   <v-text-field
                     v-model="amount"
                     label="Goal (EUR)"
-                    :rules="[rules.required, scoped_rules.numbersOnly, scoped_rules.amount]"
+                    :rules="[rules.required, rules.types.integersOnly]"
                   />
                 </v-col>
               </v-row>
@@ -89,7 +89,7 @@
                   <v-text-field
                     v-model="amount"
                     label="Starting bid (EUR)"
-                    :rules="[rules.required, scoped_rules.numbersOnly, scoped_rules.amount]"
+                    :rules="[rules.required, rules.types.integersOnly]"
                   />
                 </v-col>
                 <v-col>

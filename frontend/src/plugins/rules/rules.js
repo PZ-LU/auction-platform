@@ -10,6 +10,9 @@ const external_rules = {
         newPassword: v => (!v || ((v && v.length >= 8) && (v && v.length < 17)) ) || 'Password must be more than 8 and less than 16 characters',
         commentBody: v => ((!v) || (v && v.length <= 600)) || 'Comment must be less than 600 characters',
     },
+    types: {
+        integersOnly: v => ((!v) || (/^\d+$/.test(v))) || 'Only integer numbers are allowed',
+    },
     textOnly: v => (!v || /^[a-zA-Z_-]+$/.test(v)) || 'Field can contain letters only',
     email: v => /.+@.+\..+/.test(v) || 'Email must be valid',
     newEmail: v => (!v ||  /.+@.+\..+/.test(v) ) || 'Email must be valid'
