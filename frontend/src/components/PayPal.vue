@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import insertAuctionParticipant from '../plugins/insertAuctionParticipant'
 
 export default {
@@ -98,7 +97,7 @@ export default {
   },
   mounted () {
     const script = document.createElement("script")
-    script.src = "https://www.paypal.com/sdk/js?currency=EUR&client-id=AfmV7MYZEqRm0p_NtJREd41YtDYyRm5LVkxeXnnQW1kRs9YK2hCG3ItNUzecp173afMRFOZoJWq9jhMu"
+    script.src = `https://www.paypal.com/sdk/js?disable-funding=credit,card&currency=EUR&client-id=${this.$paypal_client}`
     script.addEventListener("load", this.loadPayPalComponent)
     document.body.appendChild(script);
   },
