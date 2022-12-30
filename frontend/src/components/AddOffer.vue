@@ -97,7 +97,8 @@
                       Provide a category for each tag.
                     </div>
                   </v-row>
-                  <v-btn 
+                  <v-btn
+                    v-if="tagObjects.length < 5"
                     class="mx-2"
                     fab
                     dark

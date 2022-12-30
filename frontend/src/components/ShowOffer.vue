@@ -210,10 +210,11 @@ export default {
         })
     },
     getTableContents () {
-      for (const part of this.tags) {
+      for (const tag of this.tags) {
+        console.log(tag);
         this.tagsItems.push({
-          'label': part.part,
-          'category': this.getCategoryName(part.category)
+          'label': tag.tag,
+          'category': this.getCategoryName(tag.category)
         })
       }
     }

@@ -184,7 +184,7 @@
           <v-btn
             text
             block
-            @click="closeAddObjTypeDialog()"
+            @click="closeAddTagCatDialog()"
           >
             Ok
           </v-btn>
@@ -239,6 +239,8 @@ export default {
     },
     closeAddTagCatDialog () {
       this.addTagCatDialog = false
+      this.showDeleteTagCatDialog = false
+      this.response = null
       this.fetchTagCategories()
     },
     fetchAllOffers () {
@@ -280,8 +282,13 @@ export default {
       this.$axios
         .post('auth/offers/tags/deleteCategory', { category: this.selectedTagCat.id}, config)
         .then (res => {
-          this.showDeleteTagCatDialog = false
-          this.fetchTagCategories()
+          let {data:data} = res
+          if (data.status == 'error') {
+            this.showDeleteTagCatDialog = true
+            this.response = data.message
+          } else {
+            this.closeAddTagCatDialog()
+          }
         })
         .catch ((err) => {
           console.log(err)

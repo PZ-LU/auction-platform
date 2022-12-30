@@ -33,7 +33,7 @@
         clearable
         v-model="title"
         outlined
-        placeholder="Offer Title"
+        placeholder="..."
         dense
       />
       <h3
@@ -45,7 +45,7 @@
         clearable
         v-model="description"
         outlined
-        placeholder="Offer Title"
+        placeholder="..."
         dense
       />
       <h3
@@ -57,7 +57,7 @@
         clearable
         v-model="tags"
         outlined
-        placeholder="Offer Title"
+        placeholder="..."
         dense
       />
       <h3
