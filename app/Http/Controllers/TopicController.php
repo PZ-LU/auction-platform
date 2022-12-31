@@ -18,9 +18,11 @@ class TopicController extends Controller
     public function index(Request $request)
     {
         if ($request->category) {
-            $topics = Topic::where('category_id', $request->category)->get();
+            $topics = Topic::where('category_id', $request->category)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
         } else {
-            $topics = Topic::all();
+            $topics = Topic::all()->orderBy('created_at', 'desc');
         }
 
         foreach ($topics as $topic) {

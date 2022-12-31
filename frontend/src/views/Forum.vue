@@ -148,7 +148,7 @@
                       color="error"
                       text
                       width="50%"
-                      @click="closeTopicDialog()"
+                      @click="closeTopicDialog(false, false)"
                     >
                       Cancel
                     </v-btn>
@@ -262,7 +262,7 @@ export default {
     this.fetchCategories()
   },
   methods: {
-    closeTopicDialog (afterSubmit = false) {
+    closeTopicDialog (afterSubmit = false, useHack = true) {
       this.body = null
       this.title = null
       if (!afterSubmit) {
@@ -272,7 +272,7 @@ export default {
       this.response = null
 
       // Hack to update topics from currently selected category
-      this.selectedCategory = null
+      if (useHack) this.selectedCategory = null
     },
     closeAddForumCategoryDialog () {
       this.addForumCategoryDialog = false
@@ -327,6 +327,7 @@ export default {
         .post('auth/forum/category/delete', { category: this.selectedCategory.id}, config)
         .then (res => {
           this.showDeleteCategoryDialog = false
+          this.selectedCategory = null
           this.fetchCategories()
         })
         .catch ((err) => {

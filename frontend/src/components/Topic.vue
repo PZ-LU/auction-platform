@@ -145,7 +145,7 @@
                     <v-dialog
                       persistent
                       v-if="$auth.user().id && ($auth.user().id === comment.author_id || $auth.user().role !== 'user')"
-                      v-model="comment.dialog"
+                      v-model="showDeleteCommentDialog"
                     >
                       <template
                         #activator="{ on }"
@@ -154,7 +154,7 @@
                           icon
                           v-on="on"
                           color="error"
-                          @click="comment.dialog = true"
+                          @click="showDeleteCommentDialog = true"
                         >
                           <v-icon>mdi-delete-forever-outline</v-icon>
                         </v-btn>
@@ -180,7 +180,7 @@
                             width="50%"
                             text
                             color="error"
-                            @click="comment.dialog = false"
+                            @click="showDeleteCommentDialog = false"
                           >
                             Cancel
                           </v-btn>
@@ -226,7 +226,8 @@ export default {
       comments: [],
       rules: external_rules,
       body: null,
-      showDeleteDialog: false
+      showDeleteDialog: false,
+      showDeleteCommentDialog: false
     }
   },
   created () {

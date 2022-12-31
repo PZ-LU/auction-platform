@@ -20,6 +20,7 @@ class Authenticate extends Middleware
       'api/register',
     ];
 
+    // Handles each request for authenticated users
     public function handle($request, Closure $next, ...$guards)
     {
         foreach ($this->exception_routes as $excluded_route) {
@@ -30,7 +31,7 @@ class Authenticate extends Middleware
 
         $user = Auth::user();
         
-        if ($user->status == User\Status::ACTIVE) {
+        if ($user && $user->status == User\Status::ACTIVE) {
             return $next($request);
         } else {
             return response()->json(['error' => 'account_suspended'], 401);
