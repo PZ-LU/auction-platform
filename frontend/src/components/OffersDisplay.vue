@@ -1,5 +1,7 @@
+<!-- Offer list for main Offer view -->
 <template>
   <div>
+    <!-- Additional tiling for control panel -->
     <div
       v-if="pIsTiled"
     >

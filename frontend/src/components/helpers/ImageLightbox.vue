@@ -1,3 +1,4 @@
+<!-- Image lightbox component, used everywhere -->
 <template>
   <div
     :style="`max-height: ${pMaxHeight}; overflow: hidden;`"

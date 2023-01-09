@@ -1,3 +1,4 @@
+<!-- Main view for signing up -->
 <template>
   <v-app>
     <v-container
@@ -14,6 +15,7 @@
         width="500px"
         class="mx-auto"
       >
+        <!-- Input fields -->
         <v-card-title>Register new account</v-card-title>
         <v-card-text>
           <v-form ref="form">

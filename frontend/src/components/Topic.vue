@@ -1,3 +1,4 @@
+<!-- Topic view view comments -->
 <template>
   <v-card
     outlined
@@ -65,17 +66,20 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-card-title>
+    <!-- Topic metadata -->
     <v-card-subtitle>
       Added by: {{ pTopic.author_data.username }}
       <v-spacer />
       Added: {{ pTopic.created_at }}
     </v-card-subtitle>
+    <!-- Body -->
     <v-card-text
       class="font-weight-regular"
     >
       {{ pTopic.body }}
     </v-card-text>
 
+    <!-- New comment form -->
     <v-card-text>
       <v-container
         v-if="$auth.user().id"
@@ -110,6 +114,7 @@
             <v-container
               style="margin-bottom: -15px;"
             >
+              <!-- Comment section -->
               <v-row
                 v-for="comment in comments"
                 :key="comment.id"

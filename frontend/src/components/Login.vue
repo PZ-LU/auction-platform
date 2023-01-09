@@ -1,3 +1,4 @@
+<!-- Login form -->
 <template>
   <v-container fill-height>
     <v-form ref="lForm">

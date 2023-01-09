@@ -1,3 +1,4 @@
+// Vuex store global state
 import Vue from 'vue'
 import Vuex from 'vuex'
 

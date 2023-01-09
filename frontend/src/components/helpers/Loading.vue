@@ -1,3 +1,4 @@
+<!-- Spinning SVG  -->
 <template>
   <v-app>
     <v-container class="loading" />

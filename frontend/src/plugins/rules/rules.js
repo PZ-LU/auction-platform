@@ -1,3 +1,4 @@
+/* Custom validation rules for Vuetify components */
 const external_rules = {
     required: v => !!v || 'This field is required',
     requiredItem: v => ((v && v=='male') || (v && v=='female')) || 'This item is required',

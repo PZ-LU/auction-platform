@@ -20,14 +20,17 @@ trait AuctionTraits
         ];
     }
 
+    // Retrieve collection of auction objects for given IDs
     public function getAuctionObjects($auctionsObject_Model, $objectIds) {
         return AuctionObjectResources::collection($auctionsObject_Model->whereIn('id', $objectIds));
     }
 
+    // Retrieve participant of given auction for given user ID
     public function findAuctionParticipant($auctionId, $userId) {
         return (new AuctionParticipantsController)->show($auctionId, $userId);
     }
 
+    // Retrieve collection of participants for given auction
     public function getAuctionParticipants($auctionParticipants_Model, $auctionId) {
         $participantsInfo = $auctionParticipants_Model->where('auction_id', $auctionId);
 
@@ -38,6 +41,7 @@ trait AuctionTraits
         $usersInfo = (new UserController)->findByIDs($userIds);
 
         try {
+            // Expand user data for final resource
             foreach ($participantsInfo as $participant){
                 foreach ($usersInfo as $userChunk) {
                     if (json_encode($userChunk->id) == $participant->user_id) {
@@ -56,6 +60,7 @@ trait AuctionTraits
         return AuctionParticipantsResources::collection($participantsInfo);
     }
 
+    // Get auction data by ID
     public function getAuctionTypeData ($auctionId, $auctionType) {
         switch ($auctionType) {
             case 'charity':

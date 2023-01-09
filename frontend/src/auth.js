@@ -1,3 +1,4 @@
+// Authentication config for websanova's jwt integration
 import bearer from '@websanova/vue-auth/drivers/auth/bearer.js'
 import authaxios from '@websanova/vue-auth/drivers/http/axios.1.x'
 import authrouter from '@websanova/vue-auth/drivers/router/vue-router.2.x.js'

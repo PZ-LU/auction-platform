@@ -1,3 +1,4 @@
+<!-- Offer filtering block -->
 <template>
   <v-card
     outlined

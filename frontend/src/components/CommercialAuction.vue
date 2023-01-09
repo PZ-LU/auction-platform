@@ -1,3 +1,4 @@
+<!-- Commercial auction content for Slot -->
 <template>
   <AuctionTemplate
     :pAuction="pAuction"
@@ -167,6 +168,7 @@ export default {
   },
   computed: {
     checkUserParticipation: function (params) {
+      // Check if user is eligible to participate based on participation date
       const now = new Date().getTime()
       const endDate = new Date(this.pAuction.auction_data[0].end_date).getTime()
       

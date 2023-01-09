@@ -1,3 +1,4 @@
+<!-- User dashboard view -->
 <template>
   <v-app>
     <v-container>
@@ -7,6 +8,7 @@
             <div
               class="profile-img"
             >
+              <!-- Change profile image -->
               <v-img
                 class="mx-auto " 
                 height="200px" 
@@ -48,6 +50,7 @@
                 v-model="editDialog"
                 max-width="800px"
               >
+                <!-- Change user info -->
                 <template #activator="{on}">                                     
                   <v-btn 
                     text 
@@ -242,7 +245,8 @@
                   </v-card-text>
                 </v-card>
               </v-dialog>
-                            
+
+              <!-- Delete profile -->
               <v-dialog
                 persistent
                 v-model="deleteDialog"
@@ -284,6 +288,7 @@
         </v-col>
 
         <v-col>
+          <!-- Display placed and favorite offers -->
           <v-card>
             <v-card-title primary-title>
               <v-container
@@ -291,7 +296,7 @@
               >
                 <v-row>
                   <h3 class="headline mb-0">
-                    Placed Offers
+                    Your Offers
                   </h3>
                   <v-spacer />
                   <v-btn
@@ -311,7 +316,7 @@
                 class="offers-tabs"
               >
                 <v-tab>
-                  Your offers
+                  Placed offers
                 </v-tab>
                 <v-tab>
                   Bookmarked offers
@@ -366,6 +371,7 @@
             </v-card-text>
           </v-card>
 
+          <!-- Display participation in auctions -->
           <v-card
             class="auction-card"
           >
@@ -560,6 +566,7 @@ export default {
       }
     },
     update () {
+      // Update user info
       this.errors = {}
       this.isError = false
       this.isLoading = true
@@ -618,6 +625,7 @@ export default {
       })
     },
     fetchCategories () {
+      // Fetch categories for offer info
       this.$axios
         .get('tag_categories')
         .then(res => {
@@ -713,6 +721,7 @@ export default {
   }
   .profile-img:hover {
     cursor: pointer;
+    background-color: lightgray;
   }
   .offers-tabs {
     min-width: 100%;

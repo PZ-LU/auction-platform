@@ -12,7 +12,7 @@ Projektā tiek izmantots:
 - CSS
 - Javascript
 - PHP
-- MySQL
+- PostgreSQL
 - VueJS (+Vuetify, +Vuex)
 - Laravel
 - PayPal API
@@ -38,22 +38,20 @@ Projektā tiek izmantots:
 - [PayPal skripts](https://developer.paypal.com/docs/checkout/reference/upgrade-integration/#4-set-up-the-transaction)
 
 # Uzstādīšanas instrukcijas
-1. Lai lietotu git lejupielādējam [Git for windows](https://git-scm.com/download/win)
-2. Instalējam git.
-3. [Lejupielādējam WAMP](https://sourceforge.net/projects/wampserver/), lai varētu izveidot webserveri.
-4. Instalējam WAMP.
-5. Pārliecinamies par WAMP darbību atverot adresi http://127.0.0.1
-6. !Jāizveido tukšo datubāzi ar nosaukumu __auction_platform__
-6. Dodamies uz WAMP atrašanās vietu (parasti c:\wamp{64}\www).
-7. Veicam labo klikšķi un izvēlamies opciju "git bash here" un izpildam zemāk raksīto komandu.
-`git clone https://github.com/rvtprog-kvalifikacija-20/d42-PavelsZuravlovs-RetroPlatforma.git`
-8. Lejupielādējam un instalējam [Composer](https://getcomposer.org/download/)
-9. Lejupielādējam un instalējam [NodeJS kopā ar NPM (LTS)](https://nodejs.org/en/)
-10. Dodamies uz projekta atrašanās vietu (tagad tas ir c:\wamp{64}\www\d42-PavelsZuravlovs-RetroPlatforma).
-11. Izveidojam __.env__ failu
-12. Dodamies uz [PasteBin](https://pastebin.com/Pq1BLe1w), kopējam visas rindas un ievietojam kodu __.env__ failā
-13. Taisām vaļā 2 termināļus (CMD/bash/PowerShell)
-14. Izpildam sekojošas komandas pēc kārtas 1. terminālā (ja būs prompti ar [yes/no], atbildam 'yes'):
+1. Lai lietotu git, lejupielādējam [Git](https://git-scm.com/downloads) un instalējam.
+2. [Lejupielādējam PostgreSQL](https://www.postgresql.org/download/), lai varētu izveidot datubāzes serveri un instalējam.
+3. Iekš Postgres jāizveido tukšo datubāzi ar nosaukumu __auction_platform__
+4. Izvēlāmies vietu projekta palaišanai
+5. Veicam labo klikšķi un izvēlamies opciju "git bash here" un izpildam zemāk raksīto komandu.
+`git clone https://github.com/PZ-LU/auction-platform.git`
+6. Lejupielādējam un instalējam [Composer](https://getcomposer.org/download/)
+7. Lejupielādējam un instalējam [NodeJS kopā ar NPM (LTS)](https://nodejs.org/en/)
+8. Dodamies uz projekta atrašanās vietu
+9. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
+10. Dodamies uz direktoriju `frontend/`
+11. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
+12. Taisām vaļā 2 termināļus (CMD/bash/PowerShell/MSYS/...)
+13. Izpildam sekojošas komandas pēc kārtas 1. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
 ```
 composer i
 php artisan migrate
@@ -61,24 +59,28 @@ php artisan jwt:secret
 php artisan storage:link
 php artisan serve
 ```
-15. Izpildam sekojošas komandas pēc kārtas 2. terminālā (ja būs prompti ar [yes/no], atbildam 'yes'):
+14. Izpildam sekojošas komandas pēc kārtas 2. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
 ```
 cd ./frontend/
 npm i
 npm run serve
 ```
 
-16. Neaizverot terminālus, atveram adresi http://localhost:8080/
+15. Dodamies uz adresi http://localhost:8080/
 
-–––––––––––––––––––––––––––––––––––––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-# Datubāze
-Lai ērtāk strādāt ar portālu un gribat aizpildīto datubāzi, iztukšojiet __auction_platform__ datubāzi (neizdzēsiet pašu DB) un importējiet šo failu:
-- Database dump (tables + contents): https://pastebin.com/raw/0a5dKt4q
-Lai piesliegties sistēmā, drīkst izmantot vai lietotājvārdu, vai e-pastu; visiem izveidotājiem lietotājiem parole ir `12345678`
+# Datubāze un dati
+Lai ērtāk strādāt ar portālu un gribat aizpildīto datubāzi, lietotnē ir nokonfigurēta Laravel datu ievietošana:
+
+`php artisan db:seed`
+
+Sistēmas pieslēgšanai var izmantot lietotājvārdu vai e-pastu:
+ * visiem parastiem reģistrētiem lietotājiem parole ir `12345678`
+ * visiem administartoriem un virsadministratoram `mainAdmin` parole ir `secret`
 
 # PayPal
-Sistēma izmanto __sandbox__ režīmu, tas nozīme, ka sistēmā tagad atrodas tikai __development__ konti.
+Sistēma izmanto __sandbox__ režīmu, tas nozīme, ka sistēmā tagad atrodas tikai __development__ konti (izmantojot pareizus __.env__ vērtības (client_id)).
 
 PayPal login: `projektsTest@mail.com`
 

@@ -1,3 +1,4 @@
+<!-- Auction subsection for Control Panel -->
 <template>
   <div
     style="display: flex;"
@@ -11,12 +12,14 @@
       <v-card-subtitle>
         <h3>Charity</h3>
       </v-card-subtitle>
+      <!-- Display current active charity auctions... -->
       <AuctionList
         v-if="activeCharityAuction"
         :pAuctions="[activeCharityAuction]"
         :pIsActive="true"
         @updateAuctions="closeDialog()"
       />
+      <!-- ... or display prompt to create one -->
       <v-card-actions
         v-else
       >
@@ -47,12 +50,14 @@
       <v-card-subtitle>
         <h3>Commercial</h3>
       </v-card-subtitle>
+      <!-- Display current active commercial auctions... -->
       <AuctionList
         v-if="activeCommercialAuction"
         :pAuctions="[activeCommercialAuction]"
         :pIsActive="true"
         @updateAuctions="closeDialog()"
       />
+      <!-- ... or display prompt to create one -->
       <v-card-actions
         v-else
       >
@@ -119,6 +124,8 @@
               >
                 {{ objType.label }}
                 <v-spacer/>
+                <!-- Again, make sure user is admin to be able to delete type,
+                     but this view is available to admins only -->
                 <v-btn
                   v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
                   icon
@@ -133,6 +140,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+      <!-- Create new object type dialog -->
       <v-dialog
         v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
         v-model="addObjTypeDialog"
@@ -178,7 +186,7 @@
         </v-card>
       </v-dialog>
     </v-card>
-    <!-- hidden delete object type dialog -->
+    <!-- Hidden delete object type dialog until needed -->
     <v-dialog
       v-model="showDeleteObjTypeDialog"
       persistent
@@ -294,6 +302,7 @@ export default {
       .then(res => {
         this.charityAuctions = res.charityAuctions
         this.commercialAuctions = res.commercialAuctions
+        // Go through all auctions and set dialog property
         for (const auction of this.charityAuctions) {
           auction['showDialog'] = false
         }

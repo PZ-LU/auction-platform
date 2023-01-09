@@ -1,3 +1,4 @@
+<!-- Finished auction fullscreen modal -->
 <template>
   <v-container
     class="history-container"

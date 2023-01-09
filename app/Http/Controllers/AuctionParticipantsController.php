@@ -42,7 +42,7 @@ class AuctionParticipantsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource: Auction <-> Participant.
      *
      * @return \Illuminate\Http\Response
      */

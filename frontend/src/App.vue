@@ -1,3 +1,4 @@
+<!-- Vue App entry point and routing -->
 <template>
   <v-app v-if="$auth.ready()">
     <v-tabs
@@ -85,6 +86,7 @@
         <span>{{ $auth.user().username }}</span>
       </v-tooltip>
 
+      <!-- Route tabs to views -->
       <v-tab-item id="/">
         <v-divider />
         <router-view v-if="activeTab === '/'" />
@@ -153,6 +155,7 @@ export default {
     });
   },
   methods: {
+    // Global state handlers
     ...mapGetters([
       'getLoginButton',
       'getAuthState'

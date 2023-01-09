@@ -1,3 +1,4 @@
+// Add new participant to the active auction
 import axios from 'axios'
 
 const insertAuctionParticipant = async (token, userId, auctionId, price, response, isPaid) => {
@@ -15,7 +16,7 @@ const insertAuctionParticipant = async (token, userId, auctionId, price, respons
     
         axios
             .post(
-            'http://127.0.0.1:8000/api/auth/auction/addParticipant',
+            'auth/auction/addParticipant',
             participantData,
             config
             )
@@ -23,7 +24,7 @@ const insertAuctionParticipant = async (token, userId, auctionId, price, respons
                 switch (res.status) {
                     case 200:
                         response.status = 'Success'
-                        response.message = `Successfull participation in the auction!`
+                        response.message = `Successful participation in the auction!`
                     break
     
                     case 500:

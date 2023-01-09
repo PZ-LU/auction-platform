@@ -1,3 +1,4 @@
+<!-- Home view with title -->
 <template>
   <v-container>
     <h1
@@ -26,6 +27,7 @@
     >
       Latest auction entries
     </h1>
+    <!-- Display auction feed if available-->
     <AuctionFeed />
   </v-container>
 </template>

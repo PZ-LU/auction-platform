@@ -1,3 +1,4 @@
+// Router paths
 import VueRouter from 'vue-router'
 
 import Home from './views/Home.vue'

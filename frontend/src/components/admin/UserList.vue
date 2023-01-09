@@ -1,3 +1,4 @@
+<!-- Get compact list of users as admin -->
 <template>
   <v-container
     class="users-container"
@@ -22,6 +23,7 @@
               color="error"
               v-on="on"
             >
+              <!-- Manage rights based on current role -->
               <span
                 v-if="pIsSuperAdmin"
               >
@@ -111,6 +113,7 @@ export default {
       this.$axios
         .post('auth/user/setStatus', { user_id: user.id, status: status }, config)
         .then(res => {
+          // Emit event from this child component
           this.$emit('update')
         })
         .catch(err => {

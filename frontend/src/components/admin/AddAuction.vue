@@ -1,3 +1,4 @@
+<!-- Create new acution of any type as admin -->
 <template>
   <div>
     <v-form
@@ -5,6 +6,7 @@
       ref="aucForm"
     >
       <v-card>
+        <!-- Conditional type -->
         <v-card-title>
           Add {{ pType }} auction
         </v-card-title>
@@ -64,7 +66,7 @@
               </v-col>
             </v-row>
 
-            <!-- /charity block -->
+            <!-- Charity auction block -->
             <div
               v-if="pType === 'charity'"
             >
@@ -78,9 +80,9 @@
                 </v-col>
               </v-row>
             </div>
-            <!-- /charity block -->
+            <!-- /Charity auction block -->
 
-            <!-- commercial block -->
+            <!-- Commercial auction block -->
             <div
               v-if="pType === 'commercial'"
             >
@@ -120,7 +122,7 @@
                 </v-col>
               </v-row>
             </div>
-            <!-- /commercial block -->
+            <!-- /Commercial auction block -->
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -142,6 +144,7 @@
         </v-card-actions>
       </v-card>
     </v-form>
+    <!-- Simple response message -->
     <v-card
       v-if="response"
     >
@@ -221,7 +224,6 @@ export default {
     submit () {
       if (!this.objectType) {
         this.clickAndEmptyType = true
-        console.log("EMPTY");
       } else {
         this.clickAndEmptyType = false
       }
@@ -234,6 +236,7 @@ export default {
         newAuctionData.append('object_name', this.objectName)
         newAuctionData.append('description', this.description)
         newAuctionData.append('object_type_id', this.objectType)
+        // Check image size (<=1.5MiB)
         if (this.image.size / 1024 / 1024 > 1.5) {
             alert("Single image size cannot exceed 1.5 MiB!")
             return

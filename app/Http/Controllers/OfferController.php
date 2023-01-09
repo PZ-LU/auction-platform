@@ -61,6 +61,7 @@ class OfferController extends Controller
         }
 
         $filterOfferIds = [];
+        // filter by category provided
         if(!is_null($request->category)) {
             $offerIds = DB::table('offers_tags')
                 ->whereIn('category', (array) $request->category)
@@ -85,6 +86,9 @@ class OfferController extends Controller
         ]);
     }
 
+    /**
+     * Get all active offers
+     */
     public function getAll () {
         $offers = Offer::where('status', Offer\Status::ACTIVE)->get();
         foreach ($offers as $offer) {
@@ -93,6 +97,9 @@ class OfferController extends Controller
         return OfferResources::collection($offers);
     }
 
+    /**
+     * Get all offers regardless of its status
+     */
     public function getServiceOffers () {
         $offers = Offer::all();
         foreach ($offers as $offer) {
@@ -120,6 +127,9 @@ class OfferController extends Controller
         }
     }
 
+    /**
+     * Get all user's active offers
+     */
     public function getUserOffers (Request $request) {
         $offers = Offer::where('author_id', '=', $request->user_id)->where('status', Offer\Status::ACTIVE)->get();
         if (sizeof($offers) < 1) {
@@ -172,7 +182,8 @@ class OfferController extends Controller
             $newLabel = null;
             $name_passed = false;
 
-            // Compose new label for picture and check if it is unique
+            // Compose new label for picture and check if it is unique across DB,
+            // regenerate as needed
             do {
                 $newLabel = md5(time()+rand()).'.'.$file->getClientOriginalExtension();
 
@@ -213,6 +224,9 @@ class OfferController extends Controller
         return new OfferResources($offer);
     }
     
+    /**
+     * Retrieve pictures for given offer
+     */
     public function media($id)
     {
         $mediaCollection = collect([]);

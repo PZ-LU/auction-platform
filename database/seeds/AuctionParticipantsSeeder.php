@@ -19,7 +19,7 @@ class AuctionParticipantsSeeder extends Seeder
         // seeding commercial auction participants
         $commercial_auctions = CommercialAuction::all();
         foreach ($commercial_auctions as $com_a) {
-            // seed the highest bidder
+            // seed the highest bidder first
             $highest_bid = $faker->numberBetween($min = 3, $max = 220) * 100 + $com_a->start_bid;
             do {
                 $user_id = App\User::all()->random()->id;

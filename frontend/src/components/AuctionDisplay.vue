@@ -1,3 +1,4 @@
+<!-- Display given auction -->
 <template>
   <v-container
     class="contains"
@@ -142,7 +143,7 @@ export default {
   props: {
     pAuction: {type: Object, default: null},
     pType: {type: String, default: null},
-    pMin: {type: Boolean, default: false}
+    pMin: {type: Boolean, default: false} // minimalistic view of same list
   },
   data () {
     return {

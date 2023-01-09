@@ -23,6 +23,7 @@ class Authenticate extends Middleware
     // Handles each request for authenticated users
     public function handle($request, Closure $next, ...$guards)
     {
+        // Handle if only path is not excluded
         foreach ($this->exception_routes as $excluded_route) {
             if ($request->path() === $excluded_route) {
                 return  $next($request);

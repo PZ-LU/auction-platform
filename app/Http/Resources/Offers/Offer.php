@@ -26,6 +26,7 @@ class Offer extends JsonResource
             'status' => $this->status
         ];
 
+        // Conditionally append author or tag data
         if ($this->author_info) {
             $arrayData['author_info'] = $this->author_info;
         }

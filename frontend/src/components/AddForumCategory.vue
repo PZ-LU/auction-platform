@@ -1,3 +1,4 @@
+<!-- Add forum category in Forum view as admin -->
 <template>
     <div>
       <v-form 

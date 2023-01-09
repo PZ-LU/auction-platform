@@ -1,3 +1,4 @@
+// Vue initialization
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -23,6 +24,7 @@ Vue.use(VueAxios, axios)
 axios.defaults.baseURL = `${process.env.VUE_APP_URL}:${process.env.VUE_APP_PORT}/api`
 Vue.prototype.$axios = axios
 Vue.use(VueAuth, auth)
+// Set paypal client ID
 Vue.prototype.$paypal_client = process.env.VUE_APP_PAYPAL_CLIENT_ID
 
 new Vue({

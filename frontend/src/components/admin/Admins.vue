@@ -1,3 +1,4 @@
+<!-- Manage admins as super admin -->
 <template>
   <v-card
     outlined
@@ -30,8 +31,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
     UserList: () => import('./UserList')

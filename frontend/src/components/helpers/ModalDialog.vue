@@ -1,3 +1,4 @@
+<!-- Uniform modal dialog DEPRECATED -->
 <template>
   <div
     class="modal"

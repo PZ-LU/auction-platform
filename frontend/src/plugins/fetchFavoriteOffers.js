@@ -1,9 +1,10 @@
+// Fetch user's favorite offers
 import axios from 'axios'
 
 const fetchFavoriteOffers = async (userId) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`http://127.0.0.1:8000/api/offers/favorites/${userId}`)
+            .get(`/offers/favorites/${userId}`)
             .then(res => {
                 resolve(res.data);
             })

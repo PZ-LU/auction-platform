@@ -1,3 +1,4 @@
+<!-- Manage users as admin -->
 <template>
   <v-card
     outlined
@@ -27,8 +28,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
     UserList: () => import('./UserList')
@@ -58,6 +57,7 @@ export default {
           this.users = []
           this.suspendedUsers= []
 
+          // Separate active and suspended users into 2 lists
           for (const user of incomingUsers) {
             user.suspendDialog = false
             switch (user.status) {

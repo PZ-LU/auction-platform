@@ -1,3 +1,4 @@
+<!-- Dialog to delete offer -->
 <template>
   <v-dialog
     persistent
@@ -12,6 +13,7 @@
         color="error"
         v-on="on"
       >
+        <!-- Make sure proper label is displayed to unprivileged user -->
         {{ $auth.user().role === "user" ? 'Delete' : 'Archive' }}
       </v-btn>
     </template>

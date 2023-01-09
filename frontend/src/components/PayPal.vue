@@ -1,3 +1,4 @@
+<!-- PayPal modal -->
 <template>
   <div>
     <div v-if="!isPaid">
@@ -96,8 +97,10 @@ export default {
     this.product.description = this.pProduct.description
   },
   mounted () {
+    // Inject additional paypal script tag on component mount
     const script = document.createElement("script")
     script.src = `https://www.paypal.com/sdk/js?disable-funding=credit,card&currency=EUR&client-id=${this.$paypal_client}`
+    // Load component into DOM 
     script.addEventListener("load", this.loadPayPalComponent)
     document.body.appendChild(script);
   },
@@ -106,6 +109,7 @@ export default {
       this.$emit('closeModal')
     },
     loadPayPalComponent: function() {
+      // PayPal custom props
       window.paypal.Buttons({
         style: {
           size: 'small',

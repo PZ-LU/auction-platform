@@ -21,10 +21,14 @@ class CommercialAuctionController extends Controller
         return CommercialAuctionResources::collection(CommercialAuction::all());
     }
 
+    // Get info including bids and participation end date
     public function getDetailsByAuctionId($auctionId) {
         return CommercialAuctionResources::collection(CommercialAuction::where('auction_id', $auctionId)->get());
     }
 
+    /**
+     * Set bid to the highest provided
+     */
     public function checkBid(Request $request) {
         $auction = new CommercialAuction;
         $auction = $auction->where('auction_id', $request->auction_id)->first();

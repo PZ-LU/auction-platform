@@ -16,13 +16,13 @@ class AuctionController extends Controller
     use AuctionTraits;
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Auction resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-
+        // Assume default as active
         $status = $request->status? $request->status : Offer\Status::ACTIVE;
         
         if ($request->limit) {
@@ -64,9 +64,11 @@ class AuctionController extends Controller
             $objectIds[] = $auction->object_id;
         }
 
+        // Encode-decode JSON with object data for final resource
         $auction_objects = json_decode(json_encode($this->getAuctionObjects(AuctionObject::all(), $objectIds)), true);
 
         foreach ($decoded_auctions as $auction) {
+            // Set object data in final resource
             foreach ($auction_objects as $object) {
                 if ($object['id'] == $auction->object_id) {
                     $auction->auction_object = $object;
@@ -79,6 +81,9 @@ class AuctionController extends Controller
         return new AuctionFullDataSetResources($decoded_auctions);
     }
 
+    /**
+     * Get user participation in auctions
+     */
     public function getUserAuctions(Request $request) {
         $activeAuctions = $this->index($request);
         $request->status = 'dismissed';
@@ -115,6 +120,9 @@ class AuctionController extends Controller
         return $newAuctions;
     }
 
+    /**
+     * Finish active auction
+     */
     public function finishAuction(Request $request) {
         $auctionToFinish = Auction::find($request->auction_id);
         $auctionToFinish->finished_at = now('Europe/Riga');
@@ -123,7 +131,7 @@ class AuctionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Auction resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

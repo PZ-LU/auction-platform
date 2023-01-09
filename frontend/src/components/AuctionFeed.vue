@@ -1,3 +1,4 @@
+<!-- Home view auction feed -->
 <template>
   <div>
     <v-container
@@ -36,6 +37,7 @@
           outlined
           class="object-card"
         >
+          <!-- Display minimalistic tiles -->
           <AuctionDisplay
             :pAuction="auction"
             :pType="'commercial'"

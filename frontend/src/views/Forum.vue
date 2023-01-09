@@ -1,3 +1,4 @@
+<!-- Main Forum view for categories and topics -->
 <template>
   <div>
     <v-container>
@@ -26,6 +27,7 @@
                     >
                       {{ category.label }}
                       <v-spacer/>
+                      <!-- Make category deletable if user is privileged -->
                       <v-btn
                         v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
                         icon
@@ -40,6 +42,7 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
+            <!-- If user is privileged, display New Category button -->
             <v-dialog
               persistent
               v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
@@ -66,6 +69,7 @@
                 />
               </v-form>
 
+              <!-- Simple response message -->
               <v-card
                 v-if="response"
               >
@@ -89,6 +93,7 @@
         <v-col
           v-if="selectedCategory"
         >
+          <!-- Make sure user is authorized to create a topic -->
           <v-row
             v-if="$auth.user().id"
           >
@@ -198,7 +203,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <!-- hidden delete category dialog -->
+    <!-- Hidden delete category dialog until needed -->
     <v-dialog
       persistent
       v-model="showDeleteCategoryDialog"

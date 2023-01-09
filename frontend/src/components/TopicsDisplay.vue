@@ -1,47 +1,52 @@
+<!-- Displays list of available topics -->
 <template>
   <v-card
     v-if="topics.length && pCategory.id"
     outlined
   >
-    <v-card-title
+    <div
       v-for="topic in topics"
       :key="topic.id"
     >
-      {{ topic.title }}
-      <v-spacer />
-      <span
-        v-if="topic.author_data.username"
-        class="subtitle-1"
-      >
-        Author: {{ topic.author_data.username }}
-      </span>
-      <v-dialog
-        v-model="topic.dialog"
-        persistent
-        fullscreen
-      >
-        <template
-          #activator="{ on }"
+      <v-card-title>
+        {{ topic.title }}
+        <v-spacer />
+        <span
+          v-if="topic.author_data.username"
+          class="subtitle-1"
         >
-          <v-btn
-            v-on="on"
-            @click="topic.dialog = true"
-            text
+          Author: {{ topic.author_data.username }}
+          <v-dialog
+            v-model="topic.dialog"
+            persistent
+            fullscreen
           >
-            Expand
-          </v-btn>
-        </template>
+            <template
+              #activator="{ on }"
+            >
+              <v-btn
+                v-on="on"
+                @click="topic.dialog = true"
+                depressed
+                class="expand-btn"
+              >
+                Expand
+              </v-btn>
+            </template>
 
-        <div
-          style="background-color: white; height: 100%;"
-        >
-          <Topic
-            :pTopic="topic"
-            @closeDialog="closeDialog()"
-          />
-        </div>
-      </v-dialog>
-    </v-card-title>
+            <div
+              style="background-color: white; height: 100%;"
+            >
+              <Topic
+                :pTopic="topic"
+                @closeDialog="closeDialog()"
+              />
+            </div>
+          </v-dialog>
+        </span>
+      </v-card-title>
+      <v-divider/> 
+    </div>
   </v-card>
 </template>
 
@@ -94,3 +99,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .expand-btn {
+    margin-left: 10px;
+  }
+</style>

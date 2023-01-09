@@ -1,3 +1,5 @@
+// Often used auction fetching based on type
+
 import axios from 'axios'
 
 const fetchAuctions = async (type = 'active') => {
@@ -32,7 +34,8 @@ const fetchAuctions = async (type = 'active') => {
 
             let charityAuctions;
             let commercialAuctions;
-            
+
+            // Split into 2 lists
             charityAuctions = auctions.filter(auction => {
                 return auction.type === 'charity'
             });

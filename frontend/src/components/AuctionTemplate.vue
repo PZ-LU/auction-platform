@@ -1,3 +1,4 @@
+<!-- Template to participate in any kind of auction -->
 <template>
   <v-card
     outlined
@@ -18,6 +19,7 @@
         style="width: 100%;"
         v-if="pAuction.auction_object.body"
       >
+        <!-- Description text -->
         <v-btn
           depressed
           text
@@ -38,6 +40,7 @@
     </v-card-title>
     
     <v-card-text>
+      <!-- Slot for custom content -->
       <slot />
       <v-container
         v-if="!isUserIsLogged"

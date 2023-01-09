@@ -1,3 +1,4 @@
+<!-- Offers subsection for Control Panel -->
 <template>
   <div
     style="display: flex;"
@@ -139,7 +140,7 @@
         </v-card>
       </v-dialog>
     </v-card>
-    <!-- hidden delete object type dialog -->
+    <!-- Hidden delete object type dialog, until needed -->
     <v-dialog
       v-model="showDeleteTagCatDialog"
       persistent

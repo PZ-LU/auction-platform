@@ -1,3 +1,4 @@
+<!-- Main view for offers and filters -->
 <template>
   <v-app>
     <v-container>
@@ -16,6 +17,7 @@
           <v-card
             outlined
           >
+            <!-- Display offers with some details -->
             <v-row>
               <v-card-title class="offers-title display-1">
                 Offer list
@@ -263,6 +265,7 @@ export default {
       this.offers_update();
     },
     offers_update () {
+      // Fetch updated offer list
       this.offersFilters = this.$store.getters['offersFilters']
       this.isPaginationDisabled = true;
       this.isLoading = true;

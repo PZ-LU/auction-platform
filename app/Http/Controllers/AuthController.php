@@ -22,6 +22,7 @@ class AuthController extends Controller
     }
 
     public function register (Request $request) {
+        // Make sure username and email are unique across entire DB
         $v = Validator::make($request->all(), [
             'username' => 'unique:users',
             'email' => 'unique:users',
@@ -49,8 +50,10 @@ class AuthController extends Controller
 
     public function login (Request $request) {
         try{
+            // Try login with email
             $credentials = $request->only('email', 'password');
             if (!($token = auth()->attempt($credentials))) {
+                // Fallback on username login
                 $credentials = $request->only('username', 'password');
                 if (!($token = auth()->attempt($credentials))){
                     return response()->json([
@@ -64,6 +67,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         if ($user->status == User\Status::ACTIVE) {
+            // Return user data
             return response([
                 'data' => $user
             ])
@@ -94,6 +98,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Refresh JWT
+     */
     public function refresh (Request $request) {
         try {
             $user = auth()->userOrFail();

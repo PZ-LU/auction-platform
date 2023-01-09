@@ -1,3 +1,4 @@
+<!-- Modular control panel view for admins -->
 <template>
   <v-container>
     <v-row>

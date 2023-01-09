@@ -1,3 +1,4 @@
+<!-- Create new offer -->
 <template>
   <div>
     <v-form 
@@ -43,6 +44,7 @@
                 outlined
               />
             </v-col>
+            <!-- Specify custom tags -->
             <v-col>
               <v-card
                 outlined
@@ -141,6 +143,7 @@
                 outlined
               >
                 <v-card-text>
+                  <!-- Include only picture media -->
                   <v-file-input
                     v-model="files"
                     :rules="[scoped_rules.filesRequired]"
@@ -283,6 +286,7 @@ export default {
     tagObjects: {
       deep: true,
       handler: function () {
+        // Watch if every tag label has category assigned
         this.areCategoriesFilled = true
         this.tagObjects.map(tag => {
           if (!tag.category) {

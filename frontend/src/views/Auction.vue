@@ -1,8 +1,10 @@
+<!-- Main view for auctions -->
 <template>
   <v-container
     class="wrapper"
   >
     <v-row>
+      <!-- Display of active auctions if available -->
       <v-col
         md="6"
       >
@@ -46,6 +48,7 @@
         </v-container>
       </v-col>
     </v-row>
+    <!-- Auction history modal -->
     <v-container
       class="history-dialog"
     >

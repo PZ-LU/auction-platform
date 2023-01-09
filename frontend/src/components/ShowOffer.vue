@@ -1,3 +1,4 @@
+<!-- Display full offer info -->
 <template>
   <v-form>
     <v-card>
@@ -197,6 +198,7 @@ export default {
         })
     },
     async getTags () {
+      // Fetch tags for given offer
       const req = 'offer/'+this.pOffer.id
       this.$axios
         .get (req)
@@ -211,7 +213,6 @@ export default {
     },
     getTableContents () {
       for (const tag of this.tags) {
-        console.log(tag);
         this.tagsItems.push({
           'label': tag.tag,
           'category': this.getCategoryName(tag.category)

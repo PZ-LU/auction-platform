@@ -1,5 +1,9 @@
 import Vuetify from 'vuetify'
 
+/* Dismantling to inject custom behavior
+ * into Vuetify components
+ */
+
 let output;
 
 const subvertVue = {

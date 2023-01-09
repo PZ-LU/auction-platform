@@ -1,3 +1,4 @@
+<!-- Get compact list of auctions as admin -->
 <template>
   <div>
     <v-list
@@ -39,6 +40,7 @@
                   </v-btn>
                 </template>
 
+                <!-- Display selected auction -->
                 <div
                   v-if="!showFinishDialog"
                   style="background-color: white;"
@@ -85,8 +87,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   components: {
     AuctionDisplay: () => import('../AuctionDisplay')
@@ -129,6 +129,7 @@ export default {
           })
     },
     isFinished () {
+      // Check if goals are fulfilled for given auction
       if (this.activeAuction) {
         switch (this.activeAuction.type) {
           case 'charity':

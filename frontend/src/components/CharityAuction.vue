@@ -1,3 +1,4 @@
+<!-- Charity auction content for Slot -->
 <template>
   <AuctionTemplate
     :pAuction="pAuction"
@@ -5,6 +6,7 @@
   >
     <v-container>
       <v-row>
+        <!-- CUrrent money amount visible in progressbar -->
         <v-progress-linear
           height="25"
           color="amber"
