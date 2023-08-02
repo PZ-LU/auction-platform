@@ -25,7 +25,9 @@
           text
           class="description-btn"
           @click="resizeDescription()"
-        >{{ descAction }}</v-btn>
+        >
+          {{ descAction }}
+        </v-btn>
         <div
           class="description-hidden"
           ref="description"

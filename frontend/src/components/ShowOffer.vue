@@ -12,7 +12,7 @@
         </div>
         <v-spacer />
         <DeleteOfferDialog
-          v-if="pOffer.status === 'active'"
+          v-if="Object.keys($auth.user()).length != 0 && pOffer.status === 'active'"
           :pOffer="pOffer"
           @delete="deleteOffer()"
         />

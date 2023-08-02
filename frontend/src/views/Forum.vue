@@ -26,7 +26,7 @@
                       style="display: contents;"
                     >
                       {{ category.label }}
-                      <v-spacer/>
+                      <v-spacer />
                       <!-- Make category deletable if user is privileged -->
                       <v-btn
                         v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"

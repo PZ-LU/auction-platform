@@ -87,3 +87,8 @@ PayPal login: `projektsTest@mail.com`
 PayPal password: `12345678`
 
 Naudas apjoms: `100 000`
+
+# Testēšana
+Izmantots `WebDriverIO`. Goto `auction-platform-frontend-tests` un palaižam:
+
+`npm run cucumber`

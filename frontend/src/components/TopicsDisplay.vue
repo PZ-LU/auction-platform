@@ -45,7 +45,7 @@
           </v-dialog>
         </span>
       </v-card-title>
-      <v-divider/> 
+      <v-divider /> 
     </div>
   </v-card>
 </template>
@@ -63,13 +63,13 @@ export default {
       topics: []
     }
   },
-  created() {
-    this.fetchTopics()
-  },
   watch: {
     pCategory: function () {
       this.fetchTopics()
     }
+  },
+  created() {
+    this.fetchTopics()
   },
   methods: {
     closeDialog () {

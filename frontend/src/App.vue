@@ -50,6 +50,7 @@
             fill-height
             text
             v-on="on"
+            id="login_button"
           >
             Log In
           </v-btn>

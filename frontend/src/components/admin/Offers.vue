@@ -80,7 +80,7 @@
                 style="display: contents;"
               >
                 {{ tagCat.label }}
-                <v-spacer/>
+                <v-spacer />
                 <v-btn
                   v-if="$auth.user().id && ($auth.user().role == 'admin' || $auth.user().role == 'super_admin')"
                   icon

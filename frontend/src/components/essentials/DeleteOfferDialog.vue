@@ -58,6 +58,9 @@ export default {
       dialog: false
     }
   },
+  created () {
+    console.log(this.$auth.user());
+  },
   methods: {
     deleteOffer () {
       this.dialog = false

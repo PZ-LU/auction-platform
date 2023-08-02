@@ -20,6 +20,7 @@
         <v-card-text>
           <v-form ref="form">
             <v-text-field
+              id="Registration_name"
               v-model="name"
               prepend-icon="mdi-account-circle-outline"
               label="Name"
@@ -27,6 +28,7 @@
               :rules="[rules.textOnly, rules.length.name]"
             />
             <v-text-field
+              id="Registration_surname"
               v-model="surname"
               prepend-icon="mdi-account-circle-outline"
               label="Surname"
@@ -34,6 +36,7 @@
               :rules="[rules.textOnly, rules.length.surname]"
             />
             <v-text-field
+              id="Registration_username"
               v-model="username"
               prepend-icon="mdi-account-circle"
               label="Username"
@@ -56,6 +59,7 @@
               </p>
             </v-expand-transition>
             <v-text-field
+              id="Registration_email"
               v-model="email"
               prepend-icon="mdi-email"
               label="Email"
@@ -77,6 +81,7 @@
               </p>
             </v-expand-transition>
             <v-text-field
+              id="Registration_password"
               v-model="password"
               prepend-icon="mdi-lock"
               type="password"
@@ -85,6 +90,7 @@
               :rules="[rules.required, rules.length.password]"
             />
             <v-text-field
+              id="Registration_password_confirm"
               v-model="password_confirmation"
               prepend-icon="mdi-lock"
               label="Confirm Password"
@@ -98,11 +104,13 @@
               class="pl-4 pt-0 mt-0"
             >
               <v-radio
+                name="Registration_gender_m"
                 color="primary"
                 :label="'Male'"
                 :value="'male'"
               />
               <v-radio
+                name="Registration_gender_f"
                 color="primary"
                 :label="'Female'"
                 :value="'female'"

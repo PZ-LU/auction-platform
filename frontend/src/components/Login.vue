@@ -3,6 +3,7 @@
   <v-container fill-height>
     <v-form ref="lForm">
       <v-text-field
+        id="Login_username"
         v-model="loginData"
         label="Username or Email"
         prepend-icon="mdi-account"
@@ -10,6 +11,7 @@
         @keypress.enter.native="login"
       />
       <v-text-field
+        id="Login_password"
         v-model="password"
         label="Password"
         prepend-icon="mdi-lock"
@@ -19,6 +21,7 @@
       />
       <v-expand-transition>
         <p 
+          id="Login_error"
           v-show="isError"
           style="color: red;"
           class="subtitle-2 pl-4"
@@ -29,7 +32,7 @@
             class="pr-0 pb-1"
           >
             mdi-alert
-          </v-icon> <span v-if="!isUserSuspended">Wrong username/email or password</span>
+          </v-icon> <span id="Login_error_msg" v-if="!isUserSuspended">Wrong username/email or password</span>
           <span v-else>Your account has been suspended</span>
         </p>
       </v-expand-transition>

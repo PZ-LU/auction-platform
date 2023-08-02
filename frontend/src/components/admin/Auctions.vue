@@ -123,7 +123,7 @@
                 style="display: contents;"
               >
                 {{ objType.label }}
-                <v-spacer/>
+                <v-spacer />
                 <!-- Again, make sure user is admin to be able to delete type,
                      but this view is available to admins only -->
                 <v-btn
