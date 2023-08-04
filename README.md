@@ -92,3 +92,5 @@ Naudas apjoms: `100 000`
 Izmantots `WebDriverIO`. Goto `auction-platform-frontend-tests` un palaižam:
 
 `npm run cucumber`
+
+NB! Lai palaistu testus, datubāzes datiem jābūt uzģenerētiem

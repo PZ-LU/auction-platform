@@ -23,7 +23,7 @@
                 Offer list
               </v-card-title>
               <v-spacer />
-              <v-card-actions class="pr-6">
+              <v-card-actions v-if="!isLoading" class="pr-6">
                 <v-btn
                   icon
                   class="fetchOffersBtn"

@@ -32,6 +32,24 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(App\User::class, 'test_user', function (Faker $faker) {
+    return [
+        'username' => 'test_user',
+        'password' => bcrypt('secret'),
+        'role' => 'user',
+        'status' => 'active'
+    ];
+});
+
+$factory->state(App\User::class, 'test_admin', function (Faker $faker) {
+    return [
+        'username' => 'test_admin',
+        'password' => bcrypt('secret'),
+        'role' => 'admin',
+        'status' => 'active'
+    ];
+});
+
 $factory->state(App\User::class, 'admin', function (Faker $faker) {
     return [
         'password' => bcrypt('secret'),

@@ -11,6 +11,7 @@ class TagCategorySeeder extends Seeder
      */
     public function run()
     {
+        factory(App\TagCategory::class, 1)->states('test_tag_category')->create();
         factory(App\TagCategory::class, 50)->create();
     }
 }
