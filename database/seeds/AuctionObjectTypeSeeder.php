@@ -11,6 +11,7 @@ class AuctionObjectTypeSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\AuctionObjectType::class, 1)->states('test_obj_type')->create();
         factory(App\AuctionObjectType::class, 15)->create();
     }
 }

@@ -15,6 +15,7 @@
             <v-row>
               <v-col>
                 <v-text-field
+                id="AddAuction_objName"
                   v-model="objectName"
                   label="Auction object name"
                   placeholder="Auction object name"
@@ -23,7 +24,9 @@
                 />
               </v-col>
               <v-col>
-                <v-row>
+                <v-row
+                id="AddAuction_objType"
+                >
                   <v-select
                     v-model="objectType"
                     required
@@ -44,6 +47,7 @@
               </v-col>
               <v-col>
                 <v-file-input
+                id="AddAuction_image"
                   v-model="image"
                   label="Auction Image"
                   prepend-icon="mdi-camera"
@@ -56,6 +60,7 @@
             <v-row>
               <v-col>
                 <v-textarea
+                id="AddAuction_description"
                   v-model="description"
                   label="Description (line endings can be used)"
                   auto-grow
@@ -73,6 +78,7 @@
               <v-row>
                 <v-col>
                   <v-text-field
+                  id="AddAuction_goal"
                     v-model="amount"
                     label="Goal (EUR)"
                     :rules="[rules.required, rules.types.integersOnly]"
@@ -89,6 +95,7 @@
               <v-row>
                 <v-col>
                   <v-text-field
+                  id="AddAuction_startBid"
                     v-model="amount"
                     label="Starting bid (EUR)"
                     :rules="[rules.required, rules.types.integersOnly]"
@@ -102,6 +109,7 @@
                   >
                     <template #activator="{ on }">
                       <v-text-field
+                      id="AddAuction_endDate"
                         v-model="date"
                         label="End date"
                         prepend-icon="mdi-event"
