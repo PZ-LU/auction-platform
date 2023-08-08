@@ -36,7 +36,7 @@
           <v-row>
             <v-col>
               <v-textarea
-            id="AddOffer_description"
+                id="AddOffer_description"
                 v-model="body"
                 :rules="[rules.required]"
                 :counter="600"
@@ -58,7 +58,7 @@
                 </v-card-title>
                 <v-card-text>
                   <v-row
-                  id="AddOffer_tags"
+                    id="AddOffer_tags"
                     v-for="tag in tagObjects"
                     :key="tag.id"
                   >
@@ -103,7 +103,7 @@
                     </div>
                   </v-row>
                   <v-btn
-                  id="AddOffer_add_tag"
+                    id="AddOffer_add_tag"
                     v-if="tagObjects.length < 5"
                     class="mx-2"
                     fab
@@ -122,7 +122,7 @@
           <v-row>
             <v-col>
               <v-text-field
-            id="AddOffer_phone"
+                id="AddOffer_phone"
                 v-model="contactPhone"
                 :rules="[scoped_rules.contactPhone]"
                 :counter="12"
@@ -150,7 +150,7 @@
                 <v-card-text>
                   <!-- Include only picture media -->
                   <v-file-input
-                  id="AddOffer_files"
+                    id="AddOffer_files"
                     v-model="files"
                     :rules="[scoped_rules.filesRequired]"
                     multiple

@@ -32,7 +32,10 @@
             class="pr-0 pb-1"
           >
             mdi-alert
-          </v-icon> <span id="Login_error_msg" v-if="!isUserSuspended">Wrong username/email or password</span>
+          </v-icon> <span
+            id="Login_error_msg"
+            v-if="!isUserSuspended"
+          >Wrong username/email or password</span>
           <span v-else>Your account has been suspended</span>
         </p>
       </v-expand-transition>
