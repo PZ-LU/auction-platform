@@ -52,7 +52,7 @@
                 v-on="on"
                 @click="showConfirmationDialog = true"
               >
-                Place bid
+                Place Bid
               </v-btn>
             </template>
 
@@ -93,7 +93,7 @@
                 {{ response.status }}
               </v-card-title>
               <v-card-text>
-                {{ response.message }}
+                <h1>{{ response.message }}</h1>
               </v-card-text>
               <v-card-actions>
                 <v-btn
