@@ -6,6 +6,8 @@ use App\AuctionParticipants;
 use App\Http\Resources\Auction\AuctionParticipants as AuctionParticipantsResources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use App\Jobs\ProcessAuctionParticipant;
+use Illuminate\Support\Facades\Redis;
 
 class AuctionParticipantsController extends Controller
 {
@@ -24,20 +26,20 @@ class AuctionParticipantsController extends Controller
         return AuctionParticipantsResources::collection(Auctionparticipants::where('auction_type', $auctionType));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public static function store($request)
     {
         $participant = new AuctionParticipants;
-        $participant->auction_id = $request->auction_id;
-        $participant->user_id = $request->user_id;
-        $participant->amount = $request->amount;
+        $participant->auction_id = $request['auction_id'];
+        $participant->user_id = $request['user_id'];
+        $participant->amount = $request['amount'];
         $participant->save();
 
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function dispatchStore(Request $request)
+    {
+        ProcessAuctionParticipant::dispatch($request->all())->onQueue('high');
         return response()->json(['status' => 'success'], 200);
     }
 

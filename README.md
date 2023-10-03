@@ -40,18 +40,19 @@ Projektā tiek izmantots:
 # Uzstādīšanas instrukcijas
 1. Lai lietotu git, lejupielādējam [Git](https://git-scm.com/downloads) un instalējam.
 2. [Lejupielādējam PostgreSQL](https://www.postgresql.org/download/), lai varētu izveidot datubāzes serveri un instalējam.
-3. Iekš Postgres jāizveido tukšo datubāzi ar nosaukumu __auction_platform__
-4. Izvēlāmies vietu projekta palaišanai
-5. Veicam labo klikšķi un izvēlamies opciju "git bash here" un izpildam zemāk raksīto komandu.
+3. [Lejupielādējam Redis](https://redis.io/download/) ([neoficiālais Redis ar native Windows atbalstu](https://github.com/zkteco-home/redis-windows)), lai varētu izmantot __producer/consumer__ rindu un instalējam.
+4. Iekš Postgres jāizveido tukšo datubāzi ar nosaukumu __auction_platform__
+5. Izvēlāmies vietu projekta palaišanai
+6. Veicam labo klikšķi un izvēlamies opciju "git bash here" un izpildam zemāk raksīto komandu.
 `git clone https://github.com/PZ-LU/auction-platform.git`
-6. Lejupielādējam un instalējam [Composer](https://getcomposer.org/download/)
-7. Lejupielādējam un instalējam [NodeJS kopā ar NPM (LTS)](https://nodejs.org/en/)
-8. Dodamies uz projekta atrašanās vietu
-9. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
-10. Dodamies uz direktoriju `frontend/`
-11. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
-12. Taisām vaļā 2 termināļus (CMD/bash/PowerShell/MSYS/...)
-13. Izpildam sekojošas komandas pēc kārtas 1. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
+7. Lejupielādējam un instalējam [Composer](https://getcomposer.org/download/)
+8. Lejupielādējam un instalējam [NodeJS kopā ar NPM (LTS)](https://nodejs.org/en/)
+9. Dodamies uz projekta atrašanās vietu
+10. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
+11. Dodamies uz direktoriju `frontend/`
+12. Izveidojam __.env__ failu un aizpildām mainīgus pēc __.env.example__ piemēra
+13. Taisām vaļā 3 termināļus (CMD/bash/PowerShell/MSYS/...)
+14. Startējam serveri 1. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
 ```
 composer i
 php artisan migrate
@@ -59,14 +60,17 @@ php artisan jwt:secret
 php artisan storage:link
 php artisan serve
 ```
-14. Izpildam sekojošas komandas pēc kārtas 2. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
+15. Startējam rindu 2. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
+```
+php artisan queue:work --queue=high,default
+```
+16. Startējam tīmekļa lietotni 3. terminālī (ja būs prompti ar [yes/no], atbilde - 'yes'):
 ```
 cd ./frontend/
 npm i
 npm run serve
 ```
-
-15. Dodamies uz adresi http://localhost:8080/
+17. Dodamies uz adresi http://localhost:8080/
 
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -93,4 +97,4 @@ Izmantots `WebDriverIO`. Goto `auction-platform-frontend-tests` un palaižam:
 
 `npm run cucumber`
 
-NB! Lai palaistu testus, datubāzes datiem jābūt uzģenerētiem
+__NB!__ Lai palaistu testus, datubāzes datiem jābūt uzģenerētiem

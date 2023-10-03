@@ -51,6 +51,7 @@
                 color="primary"
                 v-on="on"
                 @click="showConfirmationDialog = true"
+                :disabled="!correctAmount"
               >
                 Place Bid
               </v-btn>
@@ -188,7 +189,24 @@ export default {
         return true
       }
       return false
-    }
+    },
+    correctAmount: function () {
+      if (this.rules.types.integersOnly(this.bid) !== true) {
+        return false
+      }
+      if (this.bidLeader != {}) {
+        console.log(this.bid);
+        console.log(this.highestBid);
+        if (this.bid > this.highestBid) {
+          return true
+        }
+      } else {
+        if (this.bid >= this.highestBid) {
+          return true
+        }
+      }
+      return false
+    },
   },
   watch: {
     pAuction: function () {
