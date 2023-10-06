@@ -94,7 +94,8 @@
                 {{ response.status }}
               </v-card-title>
               <v-card-text>
-                <h1>{{ response.message }}</h1>
+                <h1>{{ response.message.title }}</h1>
+                <h2>{{ response.message.body }}</h2>
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -115,7 +116,7 @@
         v-if="pAuction.auction_data[0].highest_bid_user_id"
       >
         <v-col>
-          Highest bid:
+          Latest Highest bid:
         </v-col>
         <v-col>
           <v-chip
@@ -159,7 +160,7 @@ export default {
 
       response: {
         status: null,
-        message: ''
+        message: null
       },
       isPaid: false,
 
@@ -168,23 +169,27 @@ export default {
     }
   },
   computed: {
-    checkUserParticipation: function (params) {
+    checkUserParticipation: function () {
       // Check if user is eligible to participate based on participation date
       const now = new Date().getTime()
       const endDate = new Date(this.pAuction.auction_data[0].end_date).getTime()
       
+      const existingParticipant = this.pAuction.participants.find(participant => 
+        participant.id === this.$auth.user().id
+      )
+
       if (now > endDate) {
         return false
       }
 
-      if (this.isUserIsLogged && !this.pAuction.participants.find(participant => 
-        participant.id === this.$auth.user().id
-      )) {
+      if (this.isUserLogged &&
+        (!existingParticipant || existingParticipant.amount < this.highestBid)
+      ) {
         return true
       }
       return false
     },
-    isUserIsLogged: function () {
+    isUserLogged: function () {
       if (Object.keys(this.$auth.user()).length !== 0) {
         return true
       }
@@ -194,9 +199,7 @@ export default {
       if (this.rules.types.integersOnly(this.bid) !== true) {
         return false
       }
-      if (this.bidLeader != {}) {
-        console.log(this.bid);
-        console.log(this.highestBid);
+      if (this.bidLeader != null) {
         if (this.bid > this.highestBid) {
           return true
         }
@@ -221,6 +224,9 @@ export default {
   methods: {
     closeDialog () {
       this.showConfirmationDialog = false
+      this.isPaid = false
+      // this.message = null;
+      // this.checkUserParticipation();
       this.$emit('updateAuction')
     },
     getHighestBidAmount () {
@@ -242,28 +248,10 @@ export default {
         this.pAuction.id,
         this.bid,
         this.response,
-        this.isPaid
+        this.isPaid,
+        'commercial'
       )
-      const config = { 
-        headers: { 
-          'Authorization': 'Bearer '+this.$auth.token(),
-          'Content-Type': 'multipart/form-data' 
-        }
-      }
 
-      const auctionBidData = new FormData()
-      auctionBidData.append('auction_id', this.pAuction.id)
-      auctionBidData.append('user_id', this.$auth.user().id)
-      auctionBidData.append('amount', this.bid)
-
-      this.$axios
-        .post('auth/auction/checkBid', auctionBidData, config)
-        .then (res => {
-          console.log(res)
-        })
-        .catch ((err) => {
-          console.log(err)
-        })
       this.response.status = insertStatus.response.status
       this.response.message = insertStatus.response.message
       this.isPaid = insertStatus.isPaid

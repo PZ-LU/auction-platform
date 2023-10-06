@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\CommercialAuction;
+use App\AuctionParticipants;
 use App\Http\Resources\Auction\CommercialAuction as CommercialAuctionResources;
 use App\Traits\AuctionTraits;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CommercialAuctionController extends Controller
 {
@@ -29,35 +31,22 @@ class CommercialAuctionController extends Controller
     /**
      * Set bid to the highest provided
      */
-    public function checkBid(Request $request) {
+    public function placeBid($request) {
         $auction = new CommercialAuction;
-        $auction = $auction->where('auction_id', $request->auction_id)->first();
+        $auction = $auction->where('auction_id', $request['auction_id'])->first();
 
         if (is_null($auction->highest_bid_user_id)) {
-            $auction->highest_bid_user_id = $request->user_id;
+            $auction->highest_bid_user_id = $request['user_id'];
             $auction->save();
-            
-            return response()->json([
-                'status' => 'success',
-                'msg' => 'Bid was null'
-            ], 200);
+            return;
         }
 
-        $currentBiggestBidUser = $this->findAuctionParticipant($request->auction_id, $auction->highest_bid_user_id);
-        if ($request->amount > $currentBiggestBidUser->amount) {
-            $auction->highest_bid_user_id = $request->user_id;
+        $currentBiggestBidUser = $this->findAuctionParticipant($request['auction_id'], $auction->highest_bid_user_id);
+        if ($request['amount'] > $currentBiggestBidUser->amount) {
+            $auction->highest_bid_user_id = $request['user_id'];
             $auction->save();
-
-            return response()->json([
-                'status' => 'success',
-                'msg' => 'Bid replaced'
-            ], 200);
+            return;
         }
-
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'No changes to the bid'
-        ], 200);
     }
 
     /**
@@ -72,5 +61,17 @@ class CommercialAuctionController extends Controller
         $commercialAuction->start_bid = $startBid;
         $commercialAuction->end_date = $endDate;
         $commercialAuction->save();
+    }
+
+    public function getLastBid($auctionId) {
+        $commercialAuction = CommercialAuction::where('auction_id', $auctionId)->first();
+        if (!$commercialAuction) return null;
+        $highestBidUser = AuctionParticipants::where('auction_id', $commercialAuction->auction_id)
+            ->where('user_id', $commercialAuction->highest_bid_user_id)->first();
+
+        if ($highestBidUser) {
+            return $highestBidUser->amount;
+        }
+        return null;
     }
 }

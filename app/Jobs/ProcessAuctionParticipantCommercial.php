@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AuctionParticipantsController;
 use Illuminate\Support\Facades\Log;
 
-class ProcessAuctionParticipant implements ShouldQueue
+class ProcessAuctionParticipantCommercial implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,6 +34,6 @@ class ProcessAuctionParticipant implements ShouldQueue
      */
     public function handle()
     {
-        AuctionParticipantsController::store($this->request_data);
+        AuctionParticipantsController::storeCommercial($this->request_data);
     }
 }

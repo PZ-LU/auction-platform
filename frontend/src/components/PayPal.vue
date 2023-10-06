@@ -29,7 +29,7 @@
 
     <div v-if="isPaid">
       <h1>{{ response.status }}!</h1>
-      <h1>{{ response.message }}</h1>
+      <h1>{{ response.message.title }}</h1>
       <v-btn
         block
         depressed
@@ -62,7 +62,7 @@
         <span
           class="caption"
           style="color: red;"
-        >{{ response.message }}!</span>
+        >{{ response.message.title }}!</span>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@ export default {
 
       response: {
         status: null,
-        message: ''
+        message: null
       },
       isError: false
     };
@@ -139,7 +139,7 @@ export default {
         },
         onError: err => {
           this.response.status = 'Error'
-          this.response.message = 'Error occurred on this transaction'
+          this.response.message = { title:'Error occurred on this transaction' }
           this.isLoaded = true
           this.isError = true
         },
@@ -159,7 +159,8 @@ export default {
         this.pProduct.auctionId,
         price,
         this.response,
-        this.isPaid
+        this.isPaid,
+        'charity'
       )
       this.response.status = insertStatus.response.status
       this.response.message = insertStatus.response.message
