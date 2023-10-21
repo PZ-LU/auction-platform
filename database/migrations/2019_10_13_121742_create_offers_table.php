@@ -15,7 +15,7 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('title', 64);
             $table->text('body');
             $table->string('contact_phone', 12)->nullable();
@@ -23,7 +23,7 @@ class CreateOffersTable extends Migration
             $table->enum('status', ['active', 'archived'])->default('active'); // Default couldn't be UPDATED without problems, so editing old migration
             $table->text('preview_image')->nullable();
 
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

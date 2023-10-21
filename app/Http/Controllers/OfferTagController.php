@@ -36,7 +36,7 @@ class OfferTagController extends Controller
         foreach ($decodedArrayData as $dataChunk) {
             array_push($insertArray, array(
                 'tag' => $dataChunk->label,
-                'category' => $dataChunk->category,
+                'category_id' => $dataChunk->category_id,
                 'offer_id' => $offerId
             ));
         }

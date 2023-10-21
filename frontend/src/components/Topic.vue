@@ -149,7 +149,7 @@
                   >
                     <v-dialog
                       persistent
-                      v-if="$auth.user().id && ($auth.user().id === comment.author_id || $auth.user().role !== 'user')"
+                      v-if="$auth.user().id && ($auth.user().id === comment.user_id || $auth.user().role !== 'user')"
                       v-model="showDeleteCommentDialog"
                     >
                       <template

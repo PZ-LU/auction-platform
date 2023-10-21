@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Offer::class, function (Faker $faker) {
     return [
-        'author_id' => User::all()->random()->id,
+        'user_id' => User::all()->random()->id,
         'title' => $faker->text(40),
         'body' => $faker->text(300),
         'contact_phone' => $faker->numberBetween($min = 1000000, $max = 999999999999),

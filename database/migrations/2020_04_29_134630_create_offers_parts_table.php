@@ -16,10 +16,10 @@ class CreateOffersPartsTable extends Migration
         Schema::create('offers_parts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('part', 32);
-            $table->unsignedBigInteger('category');
+            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('offer_id');
 
-            $table->foreign('category')->references('id')->on('parts_category')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('parts_category')->onUpdate('cascade');
             $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade')->onUpdate('cascade');
         });
     }

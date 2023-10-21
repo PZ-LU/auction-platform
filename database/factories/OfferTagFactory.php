@@ -10,7 +10,7 @@ use Faker\Generator as Faker;
 $factory->define(OfferTag::class, function (Faker $faker) {
     return [
         'tag' => $faker->realText(32),
-        'category' => TagCategory::all()->random()->id,
+        'category_id' => TagCategory::all()->random()->id,
         'offer_id' => Offer::all()->random()->id
     ];
 });

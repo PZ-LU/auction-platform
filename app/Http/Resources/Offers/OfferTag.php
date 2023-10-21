@@ -17,7 +17,7 @@ class OfferTag extends JsonResource
         return [
             'id' => $this->id,
             'tag' => $this->tag,
-            'category' => $this->category
+            'category_id' => $this->category_id
         ];
     }
 }

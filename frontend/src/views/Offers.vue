@@ -236,7 +236,7 @@ export default {
       if (this.$auth.user().id) {
         this.offers.map(offer => {
           offer.showOfferDialog = false
-          if (offer.author_id !== this.$auth.user().id) {
+          if (offer.user_id !== this.$auth.user().id) {
             offer.canBeFavorited = true
           } else {
             offer.canBeFavorited = false

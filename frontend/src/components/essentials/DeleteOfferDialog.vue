@@ -8,7 +8,7 @@
       #activator="{ on }"
     >
       <v-btn
-        v-if="pOffer.author_id === $auth.user().id || $auth.user().role !== 'user'"
+        v-if="pOffer.user_id === $auth.user().id || $auth.user().role !== 'user'"
         text
         color="error"
         v-on="on"

@@ -13,7 +13,7 @@ class CreateCharityAuctionTable extends Migration
      */
     public function up()
     {
-        Schema::create('charity_auction', function (Blueprint $table) {
+        Schema::create('charity_auctions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('auction_id');
             $table->double('goal', 8, 2)->default(0);
@@ -29,6 +29,6 @@ class CreateCharityAuctionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charity_auction');
+        Schema::dropIfExists('charity_auctions');
     }
 }

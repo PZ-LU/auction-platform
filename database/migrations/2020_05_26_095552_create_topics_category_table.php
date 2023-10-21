@@ -13,7 +13,7 @@ class CreateTopicsCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('topics_category', function (Blueprint $table) {
+        Schema::create('topics_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('label', 32);
         });
@@ -26,6 +26,6 @@ class CreateTopicsCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topics_category');
+        Schema::dropIfExists('topics_categories');
     }
 }

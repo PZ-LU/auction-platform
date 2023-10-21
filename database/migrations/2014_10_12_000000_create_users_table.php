@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->text('avatar_path')->nullable();
             $table->string('name', 24)->nullable();
             $table->string('surname', 24)->nullable();
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('password');
             $table->timestamps();
             $table->enum('role', ['super_admin', 'admin', 'user'])->default('user');

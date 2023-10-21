@@ -11,7 +11,7 @@ class TagCategory extends Model
      *
      * @var string
      */
-    protected $table = 'tag_category';
+    protected $table = 'tag_categories';
 
     /**
      * Indicates if the model should be timestamped.

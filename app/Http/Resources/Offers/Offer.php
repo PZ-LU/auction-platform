@@ -31,8 +31,8 @@ class Offer extends JsonResource
             $arrayData['author_info'] = $this->author_info;
         }
 
-        if ($this->author_id) {
-            $arrayData['author_id'] = $this->author_id;
+        if ($this->user_id) {
+            $arrayData['user_id'] = $this->user_id;
         }
 
         if ($this->tags) {

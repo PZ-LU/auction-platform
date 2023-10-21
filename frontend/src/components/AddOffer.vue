@@ -76,7 +76,7 @@
                       v-if="categories.length"
                     >
                       <v-select
-                        v-model="tag.category"
+                        v-model="tag.category_id"
                         required
                         label="Category"
                         solo
@@ -277,7 +277,7 @@ export default {
         {
           id: 0,
           label: null,
-          category: null
+          category_id: null
         }
       ],
       categories: [],
@@ -296,7 +296,7 @@ export default {
         // Watch if every tag label has category assigned
         this.areCategoriesFilled = true
         this.tagObjects.map(tag => {
-          if (!tag.category) {
+          if (!tag.category_id) {
             this.areCategoriesFilled = false
           }
         })
@@ -319,7 +319,7 @@ export default {
       this.tagObjects.push({
         id: this.tagObjects.length,
         label: null,
-        category: null
+        category_id: null
       })
     },
     closeDialog (afterSubmit = false) {
@@ -334,7 +334,7 @@ export default {
         {
           id: 0,
           label: null,
-          category: null
+          category_id: null
         }
       ]
       this.response = {

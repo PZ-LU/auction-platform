@@ -15,12 +15,12 @@ class CreateTopicsCommentsTable extends Migration
     {
         Schema::create('topics_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('topic_id');
             $table->text('body');
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade')->onUpdate('cascade');
         });
     }

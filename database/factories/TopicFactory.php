@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Topic::class, function (Faker $faker) {
     return [
-        'author_id' => User::all()->random()->id,
+        'user_id' => User::all()->random()->id,
         'category_id' => TopicCategory::all()->random()->id,
         'title' => $faker->text(64),
         'body' => $faker->text(300),

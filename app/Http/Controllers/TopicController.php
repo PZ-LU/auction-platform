@@ -17,8 +17,8 @@ class TopicController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->category) {
-            $topics = Topic::where('category_id', $request->category)
+        if ($request->category_id) {
+            $topics = Topic::where('category_id', $request->category_id)
                         ->orderBy('created_at', 'desc')
                         ->get();
         } else {
@@ -26,7 +26,7 @@ class TopicController extends Controller
         }
 
         foreach ($topics as $topic) {
-            $topic->author_data = $this->getAuthor($topic->author_id);
+            $topic->author_data = $this->getAuthor($topic->user_id);
         }
 
         return TopicResources::collection($topics);
@@ -41,7 +41,7 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $topic = new Topic;
-        $topic->author_id = $request->user_id;
+        $topic->user_id = $request->user_id;
         $topic->category_id = $request->category_id;
         $topic->title = $request->title;
         $topic->body = $request->body;

@@ -23,8 +23,8 @@ class TagCategoryController extends Controller
     }
 
     public function deleteCategory(Request $request) {
-        $categoryToDelete = TagCategory::find($request->category);
-        $dependantOffersTags = OfferTag::where('category', '=', $categoryToDelete->id)->get();
+        $categoryToDelete = TagCategory::find($request->category_id);
+        $dependantOffersTags = OfferTag::where('category_id', '=', $categoryToDelete->id)->get();
         if (!$dependantOffersTags->isEmpty()) {
             return response()->json([
                 'status' => 'error',

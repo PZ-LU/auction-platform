@@ -164,7 +164,6 @@
                             <v-radio-group
                               v-model="gender"
                               :label="'Gender'"
-                              :rules="[rules.requiredItem]"
                               class="pl-4 pt-0 mt-0"
                             >
                               <v-radio
@@ -577,7 +576,8 @@ export default {
         name: this.name,
         surname: this.surname,
         gender: this.gender,
-        password: this.password
+        password: this.password,
+        avatar_path: this.$auth.user().avatar_path
       }
 
       this.$axios

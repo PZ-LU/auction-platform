@@ -80,7 +80,7 @@ export default {
     },
     fetchTopics () {
       this.topics = []
-      const path = `forum/topics?category=${this.pCategory.id}`
+      const path = `forum/topics?category_id=${this.pCategory.id}`
       this.$axios
         .get(path)
         .then(res => {

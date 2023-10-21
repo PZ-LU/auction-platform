@@ -24,7 +24,7 @@ class TopicCommentController extends Controller
         }
 
         foreach ($comments as $comment) {
-            $comment->author_data = $this->getAuthor($comment->author_id);
+            $comment->author_data = $this->getAuthor($comment->user_id);
         }
 
         return TopicCommentResources::collection($comments);
@@ -39,7 +39,7 @@ class TopicCommentController extends Controller
     public function store(Request $request)
     {
         $comment = new TopicComment;
-        $comment->author_id = $request->user_id;
+        $comment->user_id = $request->user_id;
         $comment->topic_id = $request->topic_id;
         $comment->body = $request->body;
         $comment->save();

@@ -100,7 +100,6 @@
             <v-radio-group
               v-model="gender"
               :label="'Gender'"
-              :rules="[rules.requiredItem]"
               class="pl-4 pt-0 mt-0"
             >
               <v-radio

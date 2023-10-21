@@ -23,7 +23,7 @@ class CreateAuctionsTable extends Migration
 
             $table->unique(['id', 'object_id']);
 
-            $table->foreign('object_id')->references('id')->on('auction_object');
+            $table->foreign('object_id')->references('id')->on('auction_objects');
         });
     }
 

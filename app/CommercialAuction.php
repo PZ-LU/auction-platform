@@ -11,7 +11,7 @@ class CommercialAuction extends Model
     *
     * @var string
     */
-   protected $table = 'commercial_auction';
+   protected $table = 'commercial_auctions';
 
    /**
     * Indicates if the model should be timestamped.

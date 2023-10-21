@@ -11,7 +11,7 @@ class TopicCategory extends Model
      *
      * @var string
      */
-    protected $table = 'topics_category';
+    protected $table = 'topics_categories';
 
     /**
      * Indicates if the model should be timestamped.

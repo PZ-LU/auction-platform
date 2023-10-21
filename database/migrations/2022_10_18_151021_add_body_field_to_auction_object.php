@@ -13,7 +13,7 @@ class AddBodyFieldToAuctionObject extends Migration
      */
     public function up()
     {
-        Schema::table('auction_object', function (Blueprint $table) {
+        Schema::table('auction_objects', function (Blueprint $table) {
             $table->text('body')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddBodyFieldToAuctionObject extends Migration
      */
     public function down()
     {
-        Schema::table('auction_object', function (Blueprint $table) {
+        Schema::table('auction_objects', function (Blueprint $table) {
             $table->dropColumn('body');
         });
     }

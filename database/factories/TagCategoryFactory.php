@@ -11,8 +11,8 @@ $factory->define(TagCategory::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(TagCategory::class, 'test_tag_category', function (Faker $faker) {
+$factory->state(TagCategory::class, 'test_tag_categories', function (Faker $faker) {
     return [
-        'label' => 'test_tag_category',
+        'label' => 'test_tag_categories',
     ];
 });

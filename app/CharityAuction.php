@@ -11,7 +11,7 @@ class CharityAuction extends Model
     *
     * @var string
     */
-   protected $table = 'charity_auction';
+   protected $table = 'charity_auctions';
 
    /**
     * Indicates if the model should be timestamped.

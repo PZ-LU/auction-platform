@@ -13,7 +13,7 @@ class CreateObjectTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('object_type', function (Blueprint $table) {
+        Schema::create('object_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('label', 32);
         });
@@ -26,6 +26,6 @@ class CreateObjectTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('object_type');
+        Schema::dropIfExists('object_types');
     }
 }

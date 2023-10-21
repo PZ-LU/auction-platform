@@ -15,14 +15,14 @@ class CreateTopicsTable extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
             $table->string('title', 64);
             $table->text('body');
             $table->timestamps();
 
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('category_id')->references('id')->on('topics_category')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('topics_categories')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

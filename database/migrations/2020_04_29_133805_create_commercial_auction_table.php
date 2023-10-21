@@ -13,7 +13,7 @@ class CreateCommercialAuctionTable extends Migration
      */
     public function up()
     {
-        Schema::create('commercial_auction', function (Blueprint $table) {
+        Schema::create('commercial_auctions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('auction_id');
             $table->double('start_bid', 8, 2)->default(0);
@@ -32,6 +32,6 @@ class CreateCommercialAuctionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commercial_auction');
+        Schema::dropIfExists('commercial_auctions');
     }
 }

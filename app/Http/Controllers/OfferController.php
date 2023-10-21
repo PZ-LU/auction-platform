@@ -64,7 +64,7 @@ class OfferController extends Controller
         // filter by category provided
         if(!is_null($request->category)) {
             $offerIds = DB::table('offers_tags')
-                ->whereIn('category', (array) $request->category)
+                ->whereIn('category_id', (array) $request->category_id)
                 ->groupBy('offer_id')
                 ->pluck('offer_id');
             $offersQuery->whereIn('id', $offerIds);
@@ -75,7 +75,7 @@ class OfferController extends Controller
 
         $offers = $offers->paginate(5);
         foreach ($offers as $offer) {
-            $offer->author_info = $this->getOfferAuthor($offer->author_id);
+            $offer->author_info = $this->getOfferAuthor($offer->user_id);
         }
 
         return OfferResources::collection($offers)->additional([
@@ -92,7 +92,7 @@ class OfferController extends Controller
     public function getAll () {
         $offers = Offer::where('status', Offer\Status::ACTIVE)->get();
         foreach ($offers as $offer) {
-            $offer->author_info = $this->getOfferAuthor($offer->author_id);
+            $offer->author_info = $this->getOfferAuthor($offer->user_id);
         }
         return OfferResources::collection($offers);
     }
@@ -103,7 +103,7 @@ class OfferController extends Controller
     public function getServiceOffers () {
         $offers = Offer::all();
         foreach ($offers as $offer) {
-            $offer->author_info = $this->getOfferAuthor($offer->author_id);
+            $offer->author_info = $this->getOfferAuthor($offer->user_id);
         }
         return OfferResources::collection($offers);
     }
@@ -131,7 +131,7 @@ class OfferController extends Controller
      * Get all user's active offers
      */
     public function getUserOffers (Request $request) {
-        $offers = Offer::where('author_id', '=', $request->user_id)->where('status', Offer\Status::ACTIVE)->get();
+        $offers = Offer::where('user_id', '=', $request->user_id)->where('status', Offer\Status::ACTIVE)->get();
         if (sizeof($offers) < 1) {
             return [];
         }
@@ -160,7 +160,7 @@ class OfferController extends Controller
     public function store(Request $request)
     {
         $offer = new Offer;
-        $offer->author_id = $request->user_id;
+        $offer->user_id = $request->user_id;
         $offer->title = $request->title;
         $offer->body = $request->body;
         $offer->contact_phone = $request->contact_phone;

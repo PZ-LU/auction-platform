@@ -27,7 +27,7 @@ class TopicCategoryController extends Controller
     }
 
     public function delete(Request $request) {
-        $categoryToDelete = TopicCategory::find($request->category);
+        $categoryToDelete = TopicCategory::find($request->category_id);
         $categoryToDelete->delete();
         return;
     }

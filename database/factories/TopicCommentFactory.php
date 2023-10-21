@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 
 $factory->define(TopicComment::class, function (Faker $faker) {
     return [
-        'author_id' => User::all()->random()->id,
+        'user_id' => User::all()->random()->id,
         'topic_id' => Topic::all()->random()->id,
         'body' => $faker->text(300),
     ];

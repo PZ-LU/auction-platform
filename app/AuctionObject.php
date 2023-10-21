@@ -11,7 +11,7 @@ class AuctionObject extends Model
     *
     * @var string
     */
-    protected $table = 'auction_object';
+    protected $table = 'auction_objects';
     
     /**
     * Indicates if the model should be timestamped.

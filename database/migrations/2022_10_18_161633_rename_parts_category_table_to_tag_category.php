@@ -13,7 +13,7 @@ class RenamePartsCategoryTableToTagCategory extends Migration
      */
     public function up()
     {
-        Schema::rename('parts_category', 'tag_category');
+        Schema::rename('parts_category', 'tag_categories');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenamePartsCategoryTableToTagCategory extends Migration
      */
     public function down()
     {
-        Schema::rename('tag_category', 'parts_category');
+        Schema::rename('tag_categories', 'parts_category');
     }
 }
