@@ -281,7 +281,7 @@ export default {
         }
       }
       this.$axios
-        .post('auth/offers/tags/deleteCategory', { category: this.selectedTagCat.id}, config)
+        .post('auth/offers/tags/deleteCategory', { category_id: this.selectedTagCat.id}, config)
         .then (res => {
           let {data:data} = res
           if (data.status == 'error') {

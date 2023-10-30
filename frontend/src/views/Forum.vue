@@ -329,7 +329,7 @@ export default {
         }
       }
       this.$axios
-        .post('auth/forum/category/delete', { category: this.selectedCategory.id}, config)
+        .post('auth/forum/category/delete', { category_id: this.selectedCategory.id}, config)
         .then (res => {
           this.showDeleteCategoryDialog = false
           this.selectedCategory = null

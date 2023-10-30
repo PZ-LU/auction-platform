@@ -6,6 +6,7 @@ use DB;
 use App\User;
 use App\Offer;
 use App\Http\Resources\Offers\Offer as OfferResources;
+use App\Jobs\ProcessOffer;
 use App\Traits\OffersTraits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -242,10 +243,15 @@ class OfferController extends Controller
         ], 200);
     }
 
-    public function softDelete(Request $request) {
-        $offer = Offer::find($request->id);
+    public static function softDelete($request) {
+        $offer = Offer::find($request['id']);
+        if (!$offer) return;
         $offer->status = 'archived';
         $offer->save();
-        return;
+    }
+
+    public function dispatchSoftDelete(Request $request) {
+        ProcessOffer::dispatch($request->all(), 'softDelete')->onQueue('default');
+        return response()->json(['status' => 'success'], 200);
     }
 }

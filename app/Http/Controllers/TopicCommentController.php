@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TopicComment;
 use App\Traits\ForumTraits;
 use App\Http\Resources\Topics\TopicComment as TopicCommentResources;
+use App\Jobs\ProcessTopicComment;
 use Illuminate\Http\Request;
 
 class TopicCommentController extends Controller
@@ -30,24 +31,30 @@ class TopicCommentController extends Controller
         return TopicCommentResources::collection($comments);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public static function store($request)
     {
         $comment = new TopicComment;
-        $comment->user_id = $request->user_id;
-        $comment->topic_id = $request->topic_id;
-        $comment->body = $request->body;
+        $comment->user_id = $request['user_id'];
+        $comment->topic_id = $request['topic_id'];
+        $comment->body = $request['body'];
         $comment->save();
     }
 
-    public function delete(Request $request) {
-        $commentToDelete = TopicComment::find($request->comment);
-        $commentToDelete->delete();
-        return;
+    public static function delete($request) {
+        $commentToDelete = TopicComment::find($request['comment']);
+        if ($commentToDelete)
+            $commentToDelete->delete();
+    }
+
+    public function dispatchStore(Request $request)
+    {
+        ProcessTopicComment::dispatch($request->all(), 'store')->onQueue('default');
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function dispatchDelete(Request $request)
+    {
+        ProcessTopicComment::dispatch($request->all(), 'delete')->onQueue('default');
+        return response()->json(['status' => 'success'], 200);
     }
 }

@@ -35,13 +35,13 @@ Route::prefix('auth')->group( function () {
         Route::prefix('offer')->group(function () {
             Route::post('get', 'OfferController@getUserOffers');   
             Route::post('add', 'OfferController@store');
-            Route::post('delete_soft', 'OfferController@softDelete');
+            Route::post('delete_soft', 'OfferController@dispatchSoftDelete');
         });
         Route::prefix('offers')->group(function () {
             Route::get('/', 'OfferController@getServiceOffers');
             Route::post('setFavorite', 'OfferController@changeFavorite');
             Route::prefix('tags')->group(function () {
-                Route::post('addCategory', 'TagCategoryController@storeCategory');
+                Route::post('addCategory', 'TagCategoryController@dispatchStoreCategory');
                 Route::post('deleteCategory', 'TagCategoryController@deleteCategory');
             });
         });
@@ -53,7 +53,7 @@ Route::prefix('auth')->group( function () {
             Route::post('add', 'AuctionController@store');
             Route::post('finish', 'AuctionController@finishAuction');
             Route::prefix('object')->group(function () {
-                Route::post('addType', 'AuctionObjectController@storeType');
+                Route::post('addType', 'AuctionObjectController@dispatchStoreType');
                 Route::post('deleteType', 'AuctionObjectController@deleteType');
             });
         });
@@ -62,16 +62,16 @@ Route::prefix('auth')->group( function () {
         // Forum
         Route::prefix('forum')->group(function () {
             Route::prefix('topic')->group(function () {
-                Route::post('add', 'TopicController@store');
-                Route::post('delete', 'TopicController@delete');
+                Route::post('add', 'TopicController@dispatchStore');
+                Route::post('delete', 'TopicController@dispatchDelete');
             });
             Route::prefix('comment')->group(function () {
-                Route::post('add', 'TopicCommentController@store');
-                Route::post('delete', 'TopicCommentController@delete');
+                Route::post('add', 'TopicCommentController@dispatchStore');
+                Route::post('delete', 'TopicCommentController@dispatchDelete');
             });
             Route::prefix('category')->group(function () {
-                Route::post('add', 'TopicCategoryController@store');
-                Route::post('delete', 'TopicCategoryController@delete');
+                Route::post('add', 'TopicCategoryController@dispatchStore');
+                Route::post('delete', 'TopicCategoryController@dispatchDelete');
             });
         });
 

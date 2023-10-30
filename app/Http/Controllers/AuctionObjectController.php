@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AuctionObject;
 use App\AuctionObjectType;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessAuctionObject;
 use Illuminate\Support\Facades\Storage;
 
 class AuctionObjectController extends Controller
@@ -40,11 +41,16 @@ class AuctionObjectController extends Controller
         return $auctionObject;
     }
 
-    public function storeType(Request $request)
+    public static function storeType($request)
     {
         $type = new AuctionObjectType;
-        $type->label = $request->label;
+        $type->label = $request['label'];
         $type->save();
+    }
+
+    public function dispatchStoreType(Request $request)
+    {
+        ProcessAuctionObject::dispatch($request->all(), 'store')->onQueue('default');
         return response()->json(['status' => 'success'], 200);
     }
 

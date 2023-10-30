@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TagCategory;
 use App\OfferTag;
 use App\Http\Resources\Tags\TagCategory as TagCategoryResources;
+use App\Jobs\ProcessTagCategory;
 use Illuminate\Http\Request;
 
 class TagCategoryController extends Controller
@@ -14,11 +15,16 @@ class TagCategoryController extends Controller
         return TagCategoryResources::collection(TagCategory::all());
     }
 
-    public function storeCategory(Request $request)
+    public static function storeCategory($request)
     {
         $category = new TagCategory;
-        $category->label = $request->label;
+        $category->label = $request['label'];
         $category->save();
+    }
+
+    public function dispatchStoreCategory(Request $request)
+    {
+        ProcessTagCategory::dispatch($request->all(), 'store')->onQueue('default');
         return response()->json(['status' => 'success'], 200);
     }
 
@@ -32,6 +38,5 @@ class TagCategoryController extends Controller
             ], 200);
         }
         $categoryToDelete->delete();
-        return;
     }
 }
